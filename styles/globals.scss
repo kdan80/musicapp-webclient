@@ -1,0 +1,88 @@
+:root {
+
+    --font-sans: 'sans';
+
+    --scrollbar-fill: red;
+    --scrollbar-fill-hover: green;
+  }
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#__next {
+    height: 100%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow: overlay;
+    overflow-x: hidden;
+    font-size: 16px;
+    font-family: var(--font-sans);  
+}
+
+/* Scrollbar Styles */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-fill) transparent;
+}
+
+body::-webkit-scrollbar {
+    width: 6px;
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+    transition: all 300ms ease-in-out;
+    background-color: var(--scrollbar-fill);
+    border-radius: 10px;
+
+    :hover {
+        background-color: var(--scrollbar-fill-hover);
+    }
+}
+
+ol, ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 400ms ease-in-out;
+
+    :hover {
+        color: var(--fg-highlight);
+    }
+}
+
+button {
+    cursor: pointer;
+    background: none;
+}
+
+input, button {
+    font-size: 1rem;
+}
+
+input {
+    min-width: 0;
+    background-color: transparent;
+
+    &::placeholder {
+        opacity: 1;
+    }
+}
+
+
