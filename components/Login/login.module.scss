@@ -1,0 +1,70 @@
+@use 'styles/colors';
+
+$border-radius: 4px;
+$input-padding: .8em 1rem;
+$border: 2px solid #13d5bb;
+$spacing: 2rem;
+
+.login {
+    color: colors.$white;
+    padding: 4rem 3rem;
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    background: colors.$black-900;
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: $spacing;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing;
+    }
+
+    input {
+        border-radius: $border-radius;
+        padding: $input-padding;
+        border: 2px solid #707070;
+        color: colors.$white;
+        caret-color: colors.$white;
+        outline: none;
+
+        &::placeholder {
+            color: #707070;
+        }
+
+        &:placeholder-shown {
+            border-color: #707070;
+        }
+
+        &:focus {
+            border-color: #13d5bb;
+        }
+    }
+
+    button {
+        color: white;
+        background-color: darken(#13d5bb, 5%);
+        border: 2px solid darken(#13d5bb, 5%);
+        border-radius: $border-radius;
+        padding: $input-padding;
+        font-weight: 700;
+        box-shadow: 0 1px 16px rgba(0, 0, 0, .2), 0 2px 32px rgba(0, 0, 0, .1);
+        margin-bottom: 4rem;
+        margin-top: 1rem;
+    }
+
+
+    @media screen and (min-width: 740px) {
+        width: auto;
+        height: auto;
+        min-width: 450px;
+        background: hsl(0, 0%, 6%, .9);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 2px 16px rgba(0, 0, 0, .4), 0 4px 32px rgba(0, 0, 0, .2);
+    }
+
+}

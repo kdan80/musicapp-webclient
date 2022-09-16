@@ -1,4 +1,15 @@
+@use 'styles/colors';
+
 .layout {
+    height: 100%;
     min-height: 100%;
-    border: 2px solid red;
+    background-color: colors.$black-900;
+    background: url('/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+

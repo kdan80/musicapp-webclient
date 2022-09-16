@@ -1,17 +1,13 @@
 import React from 'react'
 import Layout from 'components/Layout'
+import Login from 'components/Login/Login'
 
 const register = () => {
 
     return (
         <Layout>
             
-            <form>
-
-                <input type='text' placeholder='username' required />
-                <input type='password' placeholder='password' required />
-
-            </form>
+           <Login />
 
         </Layout>
     )
