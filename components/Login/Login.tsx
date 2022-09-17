@@ -11,9 +11,14 @@ const Login = () => {
         e.preventDefault()
         if (!username || !password) return
 
-        const res = await axios.post('http://192.168.1.21:4000/login', {
-            "username": username,
-            "password": password
+        const res = await axios({
+            method: 'post',
+            url: 'http://192.168.1.21:4000/login',
+            withCredentials: true,
+            data: {
+                "username": username,
+                "password": password
+            }
         })
 
         console.log('response: ', res)
