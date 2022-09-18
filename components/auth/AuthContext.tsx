@@ -4,11 +4,11 @@ import { useRouter } from 'next/router'
 
 interface AuthContextInterface {
     user: string | null
-    setUser: React.Dispatch<React.SetStateAction<string | null>> | null
+    setUser: React.Dispatch<React.SetStateAction<string | null>>
     sessionCookie: string | null
-    setSessionCookie: React.Dispatch<React.SetStateAction<string | null>> | null
-    loginUser?: (username: string, password: string) => Promise<AxiosResponse<any, any>> | null
-    logoutUser: () => Promise<boolean | undefined> | null
+    setSessionCookie: React.Dispatch<React.SetStateAction<string | null>>
+    loginUser: (username: string, password: string) => Promise<AxiosResponse<any, any>>
+    logoutUser: () => Promise<boolean | undefined>
 }
 
 export const AuthContext = React.createContext<AuthContextInterface | null>(null)

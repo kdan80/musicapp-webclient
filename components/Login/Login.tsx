@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 const Login = () => {
 
-    const { loginUser } = React.useContext(AuthContext)
+    const context = React.useContext(AuthContext)
     const router = useRouter()
 
     const [username, setUsername] = React.useState<string | null>(null)
@@ -13,7 +13,9 @@ const Login = () => {
 
     const handleSubmit = async(e: React.SyntheticEvent) => {
         e.preventDefault()
-        if (!username || !password) return
+        if (!username || !password || !context) return
+
+        const { loginUser } = context
 
         const response = await loginUser(username, password)
         if (response.status !== 200) return
