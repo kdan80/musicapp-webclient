@@ -16,9 +16,7 @@
     "incremental": true,
     "baseUrl": "./",                                  
     // "paths": {
-    //   "@config": ["src/config/config"],
-    //   "@models/*": ["src/models/*"],
-    //   "@middleware/*": ["src/middleware/*"],
+    //   "@Auth/*": ["components/auth/*"],
     // }   
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
