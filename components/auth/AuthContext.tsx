@@ -5,10 +5,10 @@ import { useRouter } from 'next/router'
 interface AuthContextInterface {
     user: string | null
     setUser: React.Dispatch<React.SetStateAction<string | null>>
-    sessionCookie: string | null
-    setSessionCookie: React.Dispatch<React.SetStateAction<string | null>>
+    isLoggedIn: boolean
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
     loginUser: (username: string, password: string) => Promise<AxiosResponse<any, any>>
-    logoutUser: () => Promise<boolean | undefined>
+    logoutUser: () => Promise<AxiosResponse<any, any>>
 }
 
 export const AuthContext = React.createContext<AuthContextInterface | null>(null)
@@ -20,7 +20,7 @@ interface Props {
 export const AuthProvider: React.FC<Props> = ({ children }) => {
 
     const router = useRouter()
-    const [sessionCookie, setSessionCookie] = React.useState<string | null>(null)
+    const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false)
     const [user, setUser] = React.useState<string | null>(null)
     const [loading, setLoading] = React.useState<boolean>(true)
 
@@ -38,30 +38,38 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
         if (response.status !== 200) return response
         
-        console.log('logged in: ', response)
-        setSessionCookie(response.data)
+        setIsLoggedIn(true)
         setUser(username)
         return response
     }
 
-    const logoutUser = () => {
-        setSessionCookie(null)
+    const logoutUser = async() => {
+
+        const response = await axios({
+            method: 'post',
+            url: 'http://192.168.1.21:4000/logout',
+            withCredentials: true,
+        })
+    
+        if (response.status !== 200) return response
+
         setUser(null)
-        return router.push('/login')
+        setIsLoggedIn(false)
+        return response
     }
 
     const contextData = {
         user,
         setUser,
-        sessionCookie,
-        setSessionCookie,
+        isLoggedIn,
+        setIsLoggedIn,
         loginUser,
         logoutUser
     }
 
     React.useEffect(() => {
         setLoading(false)
-    }, [sessionCookie, loading])
+    }, [loading])
 
     return(
         <AuthContext.Provider value={contextData}>
