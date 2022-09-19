@@ -1,17 +1,21 @@
 import React from 'react'
 import axios, { AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
+import { setCookie, parseCookies, destroyCookie } from 'nookies'
 
 interface AuthContextInterface {
     user: string | null
-    setUser: React.Dispatch<React.SetStateAction<string | null>>
+    setUser?: React.Dispatch<React.SetStateAction<string | null>>
     isLoggedIn: boolean
-    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
-    loginUser: (username: string, password: string) => Promise<AxiosResponse<any, any>>
-    logoutUser: () => Promise<AxiosResponse<any, any>>
+    setIsLoggedIn?: React.Dispatch<React.SetStateAction<boolean>>
+    loginUser?: (username: string, password: string) => Promise<AxiosResponse<any, any>>
+    logoutUser?: () => Promise<AxiosResponse<any, any>>
 }
 
-export const AuthContext = React.createContext<AuthContextInterface | null>(null)
+export const AuthContext = React.createContext<AuthContextInterface>({
+    user: null,
+    isLoggedIn: false,
+})
 
 interface Props {
     children: React.ReactNode | null
@@ -23,6 +27,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false)
     const [user, setUser] = React.useState<string | null>(null)
     const [loading, setLoading] = React.useState<boolean>(true)
+    const cookies = parseCookies()
 
     const loginUser = async(username: string, password: string) => {
 
@@ -37,6 +42,11 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         })
 
         if (response.status !== 200) return response
+
+        setCookie(null, 'user', `${username}`, {
+            httpOnly: false,
+            path: '/'
+        })
         
         setIsLoggedIn(true)
         setUser(username)
@@ -53,6 +63,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     
         if (response.status !== 200) return response
 
+        destroyCookie(null, 'user')
+
         setUser(null)
         setIsLoggedIn(false)
         return response
@@ -68,8 +80,9 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     }
 
     React.useEffect(() => {
+        if (cookies.user) setIsLoggedIn(true)
         setLoading(false)
-    }, [loading])
+    }, [loading, isLoggedIn, cookies])
 
     return(
         <AuthContext.Provider value={contextData}>
