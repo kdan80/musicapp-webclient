@@ -4,6 +4,7 @@ import Layout from 'components/Layout'
 import Login from 'components/Login/Login'
 import { AuthContext } from 'components/auth/AuthContext'
 import { useRouter } from 'next/router'
+import { parseCookies } from 'nookies'
 
 const LoginPage: NextPage = () => {
 
@@ -28,4 +29,5 @@ const LoginPage: NextPage = () => {
     )
 }
 
+//LoginPage.requireAuth = true
 export default LoginPage

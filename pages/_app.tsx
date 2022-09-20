@@ -7,17 +7,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     
     return (
         <AuthProvider>
-
-            {/* {Component.requireAuth ? (
-                <AuthGuard>
-                    <Component {...pageProps} />
-                </AuthGuard>
-            ) : (
-            // public page
+            <AuthGuard>
                 <Component {...pageProps} />
-            )} */}
-            <Component {...pageProps}/>
-
+            </AuthGuard>
         </AuthProvider>
     )
 }
