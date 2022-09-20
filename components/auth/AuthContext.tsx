@@ -1,6 +1,5 @@
 import React from 'react'
 import axios, { AxiosResponse } from 'axios'
-import { useRouter } from 'next/router'
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
 
 interface AuthContextInterface {
@@ -9,12 +8,15 @@ interface AuthContextInterface {
     isLoggedIn: boolean
     setIsLoggedIn?: React.Dispatch<React.SetStateAction<boolean>>
     loginUser?: (username: string, password: string) => Promise<AxiosResponse<any, any>>
+    isLoading: boolean
+    setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>
     logoutUser?: () => Promise<AxiosResponse<any, any>>
 }
 
 export const AuthContext = React.createContext<AuthContextInterface>({
     user: null,
     isLoggedIn: false,
+    isLoading: true
 })
 
 interface Props {
@@ -23,10 +25,9 @@ interface Props {
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
 
-    const router = useRouter()
     const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false)
     const [user, setUser] = React.useState<string | null>(null)
-    const [loading, setLoading] = React.useState<boolean>(true)
+    const [isLoading, setIsLoading] = React.useState<boolean>(true)
     const cookies = parseCookies()
 
     const loginUser = async(username: string, password: string) => {
@@ -75,18 +76,20 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         setUser,
         isLoggedIn,
         setIsLoggedIn,
+        isLoading,
+        setIsLoading,
         loginUser,
         logoutUser
     }
 
     React.useEffect(() => {
         if (cookies.user) setIsLoggedIn(true)
-        setLoading(false)
-    }, [loading, isLoggedIn, cookies])
+        setIsLoading(false)
+    }, [isLoading, isLoggedIn, cookies])
 
     return(
         <AuthContext.Provider value={contextData}>
-            {loading ? 'loading...' : children}
+            {children}
         </AuthContext.Provider>
     )
 }

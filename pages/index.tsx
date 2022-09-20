@@ -4,16 +4,24 @@ import styles from '../styles/Home.module.css'
 import { AuthContext } from 'components/auth/AuthContext'
 import React from 'react'
 import { useRouter } from 'next/router'
+import axios from 'axios'
+import { parseCookies } from 'nookies'
 
 const Home: NextPage = () => {
 
     const { isLoggedIn } = React.useContext(AuthContext)
     const router = useRouter()
 
+    const test = () => {
+        axios.get('http://192.168.1.21:4000/test')
+    }
+
     React.useEffect(() => {
         isLoggedIn
-            ? null
+            ? test()
             : router.push('/login')
+
+        
 
     }, [isLoggedIn, router])
 
@@ -31,5 +39,25 @@ const Home: NextPage = () => {
         </div>
     )
 }
+
+//Home.requireAuth = true
+export async function getServerSideProps() {
+   
+    const cookies = parseCookies()
+    
+    if (!cookies.user) {
+        return {
+            redirect: {
+              destination: '/login',
+              permanent: false,
+            },
+        }
+    }
+
+    return {
+        props: {}, 
+    }
+}
+
 
 export default Home

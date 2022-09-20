@@ -10,12 +10,14 @@ const LoginPage: NextPage = () => {
     const { isLoggedIn } = React.useContext(AuthContext)
     const router = useRouter()
 
-    React.useEffect(() => {
-        isLoggedIn
-            ? router.push('/')
-            : null
+    //if (isLoggedIn) router.push('/')
 
-    }, [isLoggedIn, router])
+    // React.useEffect(() => {
+    //     isLoggedIn
+    //         ? router.push('/')
+    //         : null
+
+    // }, [isLoggedIn, router])
 
     return (
         <Layout>
