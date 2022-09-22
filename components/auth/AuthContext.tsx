@@ -4,20 +4,17 @@ import { setCookie, parseCookies, destroyCookie } from 'nookies'
 
 interface AuthContextInterface {
     user: string | null
-    setUser?: React.Dispatch<React.SetStateAction<string | null>>
+    setUser: React.Dispatch<React.SetStateAction<string | null>>
     isLoggedIn: boolean
-    setIsLoggedIn?: React.Dispatch<React.SetStateAction<boolean>>
-    loginUser?: (username: string, password: string) => Promise<AxiosResponse<any, any>>
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+    loginUser: (username: string, password: string) => Promise<AxiosResponse<any, any>>
     isLoading: boolean
-    setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>
-    logoutUser?: () => Promise<AxiosResponse<any, any>>
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+    logoutUser: () => Promise<AxiosResponse<any, any>>
 }
 
-export const AuthContext = React.createContext<AuthContextInterface>({
-    user: null,
-    isLoggedIn: false,
-    isLoading: true
-})
+// Context must only be accessed within AuthContext.Provider
+export const AuthContext = React.createContext<AuthContextInterface>({} as AuthContextInterface)
 
 interface Props {
     children: React.ReactNode | null

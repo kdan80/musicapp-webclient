@@ -5,19 +5,19 @@ import { useRouter } from 'next/router'
 
 const Login = () => {
 
-    const context = React.useContext(AuthContext)
+    const { loginUser } = React.useContext(AuthContext)
     const router = useRouter()
 
-    const [username, setUsername] = React.useState<string | null>(null)
-    const [password, setPassword] = React.useState<string | null>(null)
+    const [username, setUsername] = React.useState<string>('')
+    const [password, setPassword] = React.useState<string>('')
 
     const handleSubmit = async(e: React.SyntheticEvent) => {
         e.preventDefault()
-        const { loginUser } = context
 
         if (!username || !password) return
 
         const response = await loginUser(username, password)
+        console.log('login')
         if (response.status !== 200) return
 
         return router.push('/')
@@ -32,8 +32,8 @@ const Login = () => {
         <div className={styles.login}>
             <h1>Sign In</h1>
             <form action='' onSubmit={handleSubmit}>
-                <input name='username' type='text' placeholder='Username' required onChange={handleChange} />
-                <input name='password' type='password' placeholder='Password' required onChange={handleChange} />
+                <input value={username} name='username' type='text' placeholder='Username' required onChange={handleChange} />
+                <input value={password}  name='password' type='password' placeholder='Password' required onChange={handleChange} />
                 <button type='submit'>Sign In</button>
             </form> 
         </div>

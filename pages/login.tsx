@@ -10,7 +10,6 @@ const LoginPage: NextPage = () => {
             <Login />
         </Layout>
     )
-   
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
