@@ -13,9 +13,9 @@ const Login = () => {
 
     const handleSubmit = async(e: React.SyntheticEvent) => {
         e.preventDefault()
-        if (!username || !password || !context) return
-
         const { loginUser } = context
+
+        if (!username || !password) return
 
         const response = await loginUser(username, password)
         if (response.status !== 200) return

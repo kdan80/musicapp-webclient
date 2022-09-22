@@ -1,33 +1,32 @@
 import React from 'react'
-import type { NextPage } from 'next'
+import type { NextPage, GetServerSideProps } from 'next'
 import Layout from 'components/Layout'
 import Login from 'components/Login/Login'
-import { AuthContext } from 'components/auth/AuthContext'
-import { useRouter } from 'next/router'
-import { parseCookies } from 'nookies'
 
 const LoginPage: NextPage = () => {
-
-    const { isLoggedIn } = React.useContext(AuthContext)
-    const router = useRouter()
-
-    //if (isLoggedIn) router.push('/')
-
-    // React.useEffect(() => {
-    //     isLoggedIn
-    //         ? router.push('/')
-    //         : null
-
-    // }, [isLoggedIn, router])
-
+    
     return (
         <Layout>
-            
-           <Login />
-
+            <Login />
         </Layout>
     )
+   
 }
 
-//LoginPage.requireAuth = true
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const authCookie = context.req.cookies['user']
+    const isLoggedIn = authCookie ? true : false
+
+    if (isLoggedIn) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
+
+    return { props: {}}
+}
+
 export default LoginPage

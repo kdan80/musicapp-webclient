@@ -1,25 +1,10 @@
-import type { NextPage } from 'next'
+import type { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { AuthContext } from 'components/auth/AuthContext'
 import React from 'react'
-import { useRouter } from 'next/router'
-import axios from 'axios'
+
 
 const Home: NextPage = () => {
-
-    const { isLoggedIn } = React.useContext(AuthContext)
-    const router = useRouter()
-
-    const test = () => {
-        axios.get('http://192.168.1.21:4000/test')
-    }
-
-    // React.useEffect(() => {
-    //     isLoggedIn
-    //         ? test()
-    //         : router.push('/login')
-    // }, [isLoggedIn, router])
 
     return (
         <div className={styles.container}>
@@ -36,5 +21,21 @@ const Home: NextPage = () => {
     )
 }
 
-//Home.requireAuth = true
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    
+    const authCookie = context.req.cookies['user']
+    const isLoggedIn = authCookie ? true : false
+
+    if (!isLoggedIn) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false
+            }
+        }
+    }
+
+    return { props: {}}
+}
+
 export default Home

@@ -6,10 +6,13 @@ import AuthGuard from 'components/auth/AuthGuard'
 function MyApp({ Component, pageProps }: AppProps) {
     
     return (
+        // <AuthProvider>
+        //     <AuthGuard>
+        //         <Component {...pageProps} />
+        //     </AuthGuard>
+        // </AuthProvider>
         <AuthProvider>
-            <AuthGuard>
                 <Component {...pageProps} />
-            </AuthGuard>
         </AuthProvider>
     )
 }
