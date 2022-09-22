@@ -1,0 +1,24 @@
+{
+  "trailingComma": "es5",
+  "useTabs": false,
+  "bracketSpacing": true,
+  "printWidth": 80,
+  "arrowParens": "avoid",
+  "requirePragma": false,
+  "tabWidth": 4,
+  "semi": false,
+  "singleQuote": true,
+  "bracketSameLine": true,
+  "htmlWhitespaceSensitivity": "css",
+  "vueIndentScriptAndStyle": false,
+  "singleAttributePerLine": false,
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": "*.json",
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
+}
