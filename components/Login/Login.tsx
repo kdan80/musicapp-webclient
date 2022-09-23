@@ -32,8 +32,8 @@ const Login = () => {
         <div className={styles.login}>
             <h1>Sign In</h1>
             <form action='' onSubmit={handleSubmit}>
-                <input value={username} name='username' type='text' placeholder='Username' required onChange={handleChange} />
-                <input value={password}  name='password' type='password' placeholder='Password' required onChange={handleChange} />
+                <input value={username} autoComplete={username} name='username' type='text' placeholder='Username' required onChange={handleChange} />
+                <input value={password} autoComplete={password}  name='password' type='password' placeholder='Password' required onChange={handleChange} />
                 <button type='submit'>Sign In</button>
             </form> 
         </div>

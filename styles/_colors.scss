@@ -1,22 +1,50 @@
-$black-900: hsl(0, 0%, 6%);
-$black-800: hsl(0, 0%, 7%);
-$black-700: hsl(0, 0%, 8%);
-$black-600: hsl(0, 0%, 9%);
-$black-500: hsl(0, 0%, 10%);
-$black-400: hsl(0, 0%, 11%);
-$black-300: hsl(0, 0%, 12%);
-$black-200: hsl(0, 0%, 13%);
-$black-100: hsl(0, 0%, 14%);
+// For use within this document only
+$rgb-000: #000000;
+$rgb-007: #070707;
+$rgb-010: #0a0a0a;
+$rgb-018: #121212;
+$rgb-019: #131313;
+$rgb-024: #181818;
+$rgb-026: #1a1a1a;
+$rgb-036: #242424;
+$rgb-040: #282828;
+$rgb-042: #2a2a2a;
+$rgb-077: #4d4d4d;
+$rgb-090: #5a5a5a;
+$rgb-094: #5e5e5e;
+$rgb-114: #727272;
+$rgb-156: #9c9c9c;
+$rgb-167: #a7a7a7;
+$rgb-172: #b2b2b2;
+$rgb-179: #b3b3b3;
+$rgb-255: #ffffff;
+$green                     :#1ed760;
+$dark-green                :#169b45;
+$yellow                    :#ffa42b;
+$sky-blue                  :#3d91f4;
+$blue                      :#0d72ea;
+$red                       :#e91429;
+$pink                      :#f15e6c;
 
-$teal-900: #004D40;
-$teal-800: #00695C;
-$teal-700: #00796B;
-$teal-600: #00897B;
-$teal-500: #009688;
-$teal-400: #009688;
-$teal-300: #4DB6AC;
-$teal-200: #4DB6AC;
-$teal-100: #4DB6AC;
-$teal-050: #E0F2F1;
+// Exported theme colors 
+$hero                      :#169b45;
+$hero-hover                :#1ab751;
 
-$white: rgb(240, 240, 240);
+$bg-main                   :#121212;
+$bg-pane                   :#000000;
+$bg-card                   :#181818;
+
+// Text colors
+$txt-main                  :#ffffff;
+$txt-subdued               :#b3b3b3;
+$txt-placeholder           :#727272;
+
+$btn-hero                  :$hero;
+$btn-hero-hover            :$hero-hover;
+
+$border-hero               :$hero;
+$border-hero-hover         :$hero-hover;
+
+$border-grey               :#767676;
+
+$input-bg                  :#121212;

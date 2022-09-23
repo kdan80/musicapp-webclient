@@ -1,4 +1,5 @@
 @use 'fonts';
+@use 'styles/colors';
 
 * {
     padding: 0;
@@ -69,11 +70,38 @@ input, button {
 
 input {
     min-width: 0;
-    background-color: transparent;
+    background-color: colors.$input-bg;
+    border-radius: 4px;
+    padding: .8rem 1rem;
+    border: 2px solid colors.$border-grey;
+    color: colors.$txt-main;
+    caret-color: colors.$txt-main;
+    outline: none;
 
     &::placeholder {
+        color: colors.$txt-placeholder;
+        background-color: colors.$input-bg;
         opacity: 1;
     }
+
+    &:placeholder-shown {
+        border-color: colors.$border-grey;
+    }
+
+    &:focus {
+        border-color: colors.$hero;
+    }
 }
+
+// These styles remove the autofill background color in firefox/chrome
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    box-shadow: 0 0 0 30px colors.$input-bg inset !important;
+    -webkit-text-fill-color: colors.$txt-main !important;
+}
+
+
 
 
