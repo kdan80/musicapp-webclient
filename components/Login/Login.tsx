@@ -4,7 +4,7 @@ import { AuthContext } from 'components/auth/AuthContext'
 import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const variants = {
+const userVariants = {
     initial: {
         opacity: 0,
         x: -100,
@@ -18,10 +18,6 @@ const variants = {
             duration: .75,
         }
       },
-      exit: {
-        opacity: 0,
-        x: -100,
-      }
 }
 
 const guestVariants = {
@@ -38,10 +34,6 @@ const guestVariants = {
             duration: .75,
         }
     },
-    exit: {
-        opacity: 0,
-        x: 100,
-      }
 }
 
 const Login = () => {
@@ -85,8 +77,9 @@ const Login = () => {
         if (e.target.name === 'password') return setPassword(e.target.value)
     }
 
+    // Keep track of whether this is the first render or not
+    // This is used to disable animations on page load/reloads
     const firstRender = React.useRef(true);
-
     React.useEffect(() => {
         if (firstRender.current) {
             firstRender.current = false;
@@ -143,24 +136,19 @@ const Login = () => {
                         <motion.div
                             initial={firstRender.current ? undefined : 'initial'}
                             animate='enter'
-                            //exit={undefined}
-                            variants={variants}
-                            >
+                            variants={userVariants}>
                             <div>Don't have an account?</div>
                             <div>Sign in as a <a href='#' onClick={enableGuestSignIn}>guest</a></div>
                         </motion.div>
                     )
                 }
                 
-
                 {
                     isGuest && (
                         <motion.div
                             initial='initial'
                             animate='enter'
-                            //exit='exit'
-                            variants={guestVariants}
-                            >
+                            variants={guestVariants}>
                             Go back to the standard <a href='#' onClick={cancelGuestSignIn}>login</a>
                         </motion.div>
                     )
