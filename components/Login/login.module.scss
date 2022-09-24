@@ -51,6 +51,17 @@ $spacing: 2rem;
         }
     }
 
+    .test {
+        display: block;
+    }
+
+    .bottomText {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        //border: 1px solid red;
+    }
+
     @media screen and (min-width: 740px) {
         width: auto;
         height: 550px;
