@@ -2,39 +2,8 @@ import React from 'react'
 import styles from './login.module.scss'
 import { AuthContext } from 'components/auth/AuthContext'
 import { useRouter } from 'next/router'
-import { motion, AnimatePresence } from 'framer-motion'
-
-const userVariants = {
-    initial: {
-        opacity: 0,
-        x: -100,
-      },
-      enter: {
-        opacity: 1,
-        x: 0,
-        transition: {
-            type: 'spring',
-            bounce: .35,
-            duration: .75,
-        }
-      },
-}
-
-const guestVariants = {
-    initial: {
-        opacity: 0,
-        x: 100,
-    },
-    enter: {
-        opacity: 1,
-        x: 0,
-        transition: {
-            type: 'spring',
-            bounce: .35,
-            duration: .75,
-        }
-    },
-}
+import { motion } from 'framer-motion'
+import { userText, guestText, submitButton } from './login.animations'
 
 const Login = () => {
 
@@ -107,50 +76,61 @@ const Login = () => {
                 />
 
                 <button type='submit'>
+
                     <motion.div
-                        initial={{ opacity: 0}}
-                        animate={{ 
-                            opacity: 1,
-                            scaleX: [1,1.01,1]
-                        }}>
+                        className={styles.userText}
+                        initial='initial'
+                        animate={isGuest ? undefined : 'enter'}
+                        exit={isGuest ? 'exit' : undefined}
+                        variants={submitButton}>
                             {buttonText}
                     </motion.div>
+                        
+                    <motion.div
+                        className={styles.guestText}
+                        initial='initial'
+                        animate={!isGuest ? undefined : 'enter'}
+                        exit={!isGuest ? 'exit' : undefined}
+                        variants={submitButton}>
+                            {buttonText}
+                    </motion.div>
+
                 </button>
 
             </form> 
 
-            <div className={styles.bottomText}>             
-              
+            <div className={styles.bottomText}>    
 
-                <AnimatePresence initial={false}>
-                    {
-                        !isGuest && (
-                            <motion.div
-                                className={styles.userText}
-                                initial='initial'
-                                animate='enter'
-                                variants={userVariants}>
-                                <div>Don't have an account?</div>
-                                <div>Sign in as a <a href='#' onClick={enableGuestSignIn}>guest</a></div>
-                            </motion.div>
-                        )
-                    }
-                </AnimatePresence>
+                    <motion.div
+                        className={styles.userText}
+                        initial='initial'
+                        animate={isGuest ? undefined : 'enter'}
+                        exit={isGuest ? 'exit' : undefined}
+                        transition={{ 
+                            type: 'spring',
+                            bounce: .3,
+                            duration: .5,
+                        }}
+                        variants={userText}>
+                        <div>Don't have an account?</div>
+                        <div>Sign in as a <a href='#' onClick={enableGuestSignIn}>guest</a></div>
+                    </motion.div>
+                     
+                    <motion.div
+                        className={styles.guestText}
+                        initial='initial'
+                        animate={!isGuest ? undefined : 'enter'}
+                        exit={!isGuest ? 'exit' : undefined}
+                        transition={{ 
+                            type: 'spring',
+                            bounce: .3,
+                            duration: .5,
+                        }}
+                        variants={guestText}>
+                        Go back to the standard <a href='#' onClick={cancelGuestSignIn}>login</a>
+                    </motion.div>
 
-                    {
-                        isGuest && (
-                            <motion.div
-                                className={styles.guestText}
-                                initial='initial'
-                                animate='enter'
-                                variants={guestVariants}>
-                                Go back to the standard <a href='#' onClick={cancelGuestSignIn}>login</a>
-                            </motion.div>
-                        )
-                    }
-             
             </div>
-            
              
         </div>
     )
