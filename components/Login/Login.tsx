@@ -77,16 +77,6 @@ const Login = () => {
         if (e.target.name === 'password') return setPassword(e.target.value)
     }
 
-    // Keep track of whether this is the first render or not
-    // This is used to disable animations on page load/reloads
-    const firstRender = React.useRef(true);
-    React.useEffect(() => {
-        if (firstRender.current) {
-            firstRender.current = false;
-            return;
-        }
-    });
-
     return (
         <div className={styles.login}>
 
@@ -130,29 +120,34 @@ const Login = () => {
             </form> 
 
             <div className={styles.bottomText}>             
-                
-                {
-                    !isGuest && (
-                        <motion.div
-                            initial={firstRender.current ? undefined : 'initial'}
-                            animate='enter'
-                            variants={userVariants}>
-                            <div>Don't have an account?</div>
-                            <div>Sign in as a <a href='#' onClick={enableGuestSignIn}>guest</a></div>
-                        </motion.div>
-                    )
-                }
-                
-                {
-                    isGuest && (
-                        <motion.div
-                            initial='initial'
-                            animate='enter'
-                            variants={guestVariants}>
-                            Go back to the standard <a href='#' onClick={cancelGuestSignIn}>login</a>
-                        </motion.div>
-                    )
-                }
+              
+
+                <AnimatePresence initial={false}>
+                    {
+                        !isGuest && (
+                            <motion.div
+                                className={styles.userText}
+                                initial='initial'
+                                animate='enter'
+                                variants={userVariants}>
+                                <div>Don't have an account?</div>
+                                <div>Sign in as a <a href='#' onClick={enableGuestSignIn}>guest</a></div>
+                            </motion.div>
+                        )
+                    }
+                </AnimatePresence>
+
+                    {
+                        isGuest && (
+                            <motion.div
+                                className={styles.guestText}
+                                initial='initial'
+                                animate='enter'
+                                variants={guestVariants}>
+                                Go back to the standard <a href='#' onClick={cancelGuestSignIn}>login</a>
+                            </motion.div>
+                        )
+                    }
              
             </div>
             
