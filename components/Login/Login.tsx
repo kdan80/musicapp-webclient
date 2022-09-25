@@ -3,7 +3,7 @@ import styles from './login.module.scss'
 import { AuthContext } from 'components/auth/AuthContext'
 import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
-import { userText, guestText, submitButton } from './login.animations'
+import { userText, guestText } from './login.animations'
 
 const Login = () => {
 
@@ -73,84 +73,59 @@ const Login = () => {
                 />
 
                 <button type='submit'>
-
-                    <AnimatePresence initial={false}>
-                        {
-                            !isGuest && (
-                                <motion.div
-                                    className={styles.userText}
-                                    initial='initial'
-                                    animate='enter'
-                                    exit='exit'
-                                    variants={submitButton}>
-                                        Sign in
-                                </motion.div>
-                            )
-                        }
-                    </AnimatePresence>
-                        
-                    <AnimatePresence initial={false}>
-                        {
-                            isGuest && (
-                                <motion.div
-                                    className={styles.guestText}
-                                    initial='initial'
-                                    animate='enter'
-                                    exit='exit'
-                                    variants={submitButton}>
-                                        Sign in as guest
-                                </motion.div>
-                            )
-                        }
-                    </AnimatePresence>
-
+                    Sign in
                 </button>
 
             </form> 
 
-            <div className={styles.bottomText}>    
-                
-                    <AnimatePresence initial={false}>
-                        {
-                            !isGuest && (
-                                <motion.div
-                                    className={styles.userText}
-                                    initial='initial'
-                                    animate='enter'
-                                    exit='exit'
-                                    transition={{ 
-                                        type: 'spring',
-                                        bounce: .3,
-                                        duration: .5,
-                                    }}
-                                    variants={userText}>
-                                    <div>Don&apos;t have an account?</div>
-                                    <div>Sign in as a <a href='#' onClick={enableGuestSignIn}>guest</a></div>
-                                </motion.div>
-                            )
-                        }
-                    </AnimatePresence>
+            
 
-                    <AnimatePresence initial={false}>
-                        {
-                            isGuest && (
-                                <motion.div
-                                    className={styles.guestText}
-                                    initial='initial'
-                                    animate='enter'
-                                    exit='exit'
-                                    transition={{ 
-                                        type: 'spring',
-                                        bounce: .3,
-                                        duration: .5,
-                                    }}
-                                    variants={guestText}>
-                                    Go back to the standard <a href='#' onClick={cancelGuestSignIn}>login</a>
-                                </motion.div>
-                            )
-                        }
-                    </AnimatePresence>
+            <div className={styles.bottomText}>  
+  
+                <motion.div 
+                    className={styles.userText}
+                    initial='initial'
+                    animate={isGuest ? 'animate' : undefined}
+                    variants={userText}
+                    >
+                    <div>Don&apos;t have an account?</div>
+                    <div>Sing in as a <span onClick={enableGuestSignIn}>guest</span></div>
+                </motion.div>
+
+                <motion.div 
+                    className={styles.guestText}
+                    initial='initial'
+                    animate={isGuest ? 'animate' : undefined}
+                    variants={guestText}
+                    >
+                    <div>Return to the standard <span onClick={cancelGuestSignIn}>login</span></div>
+                </motion.div>
+
             </div>
+
+
+            {/* <div className={styles.bottomText}>  
+  
+  <motion.div 
+      className={styles.userText}
+      initial='initial'
+      animate={isGuest ? 'animate' : undefined}
+      variants={userText}
+      >
+      <div>Don&apos;t have an account?</div>
+      <div>Sing in as a <span onClick={enableGuestSignIn}>guest</span></div>
+  </motion.div>
+
+  <motion.div 
+      className={styles.guestText}
+      initial='initial'
+      animate={isGuest ? 'animate' : undefined}
+      variants={guestText}
+      >
+      <div>Return to the standard <span onClick={cancelGuestSignIn}>login</span></div>
+  </motion.div>
+
+</div> */}
              
         </div>
     )

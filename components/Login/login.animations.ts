@@ -1,50 +1,31 @@
 export const userText = {
+
     initial: {
-        opacity: 0,
-        x: -100,
-        zIndex: -10,
-      },
-    enter: {
-        opacity: 1,
         x: 0,
-        zIndex: 10,
+        opacity: 1,
+        zIndex: 2
     },
-    exit: {
-        opacity: 0,
+
+    animate: {
         x: -100,
-        zIndex: -10,
-    },
+        opacity: 0,
+        zIndex: 1
+    }
 }
 
 export const guestText = {
-    initial: {
-        opacity: 0,
-        x: 100,
-        zIndex: -20,
-    },
-    enter: {
-        opacity: 1,
-        x: 0,
-        zIndex: 20,
-    },
-    exit: {
-        opacity: 0,
-        x: 100,
-        zIndex: -20,
-    },
-}
 
-export const submitButton = {
     initial: {
-        scale: 0,
-        zIndex: -1
+        x: 100,
+        translateY: "-200%",
+        zIndex: 1,
+        opacity: 0,
     },
-    enter: {
-        scale: 1,
-        zIndex: 1
-    },
-    exit: {
-        scale: 0,
-        zIndex: -1
+
+    animate: {
+        x: 0,
+        translateY: "-200%",
+        zIndex: 2,
+        opacity: 1,
     }
 }

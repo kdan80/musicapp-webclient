@@ -27,6 +27,7 @@ body {
 /* Scrollbar Styles */
 html {
     scrollbar-width: thin;
+    scrollbar-color: colors.$scrollbar-bg transparent;
     scrollbar-color: red transparent;
 }
 
@@ -40,11 +41,11 @@ body::-webkit-scrollbar-track {
 
 body::-webkit-scrollbar-thumb {
     transition: all 300ms ease-in-out;
-    background-color: red;
+    background-color: colors.$scrollbar-bg;
     border-radius: 10px;
 
     :hover {
-        background-color: green;
+        background-color: colors.$scrollbar-bg-hover;
     }
 }
 
@@ -55,7 +56,7 @@ ol, ul {
 a {
     text-decoration: none;
     cursor: pointer;
-    transition: color 400ms ease-in-out;
+    transition: color 300ms ease-in-out;
 }
 
 button {
