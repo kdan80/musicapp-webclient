@@ -2,8 +2,8 @@ import React from 'react'
 import styles from './login.module.scss'
 import { AuthContext } from 'components/auth/AuthContext'
 import { useRouter } from 'next/router'
-import { motion, AnimatePresence } from 'framer-motion'
-import { userText, guestText } from './login.animations'
+import { motion } from 'framer-motion'
+import { hideGuestText, showGuestText, hideUserText, showUserText, buttonText } from './login.animations'
 
 const Login = () => {
 
@@ -43,6 +43,15 @@ const Login = () => {
         if (e.target.name === 'password') return setPassword(e.target.value)
     }
 
+    // This is used to disable animations on first render
+    const componentDidMount = React.useRef(true)
+    React.useEffect(() => {
+        if (componentDidMount.current) {
+            componentDidMount.current = false;
+            return;
+        }
+    });
+
     return (
         <div className={styles.login}>
 
@@ -73,20 +82,47 @@ const Login = () => {
                 />
 
                 <button type='submit'>
-                    Sign in
+                    
+                    {
+                        !isGuest && (
+                            <motion.div 
+                                initial='initial'
+                                animate='animate'
+                                variants={componentDidMount.current ? undefined : buttonText}>
+                                Sign in
+                            </motion.div>
+                        )
+                    }
+
+                    {
+                        isGuest && (
+                            <motion.div 
+                                initial='initial'
+                                animate='animate'
+                                variants={componentDidMount.current ? undefined : buttonText}
+                                >
+                                Sign in as guest
+                            </motion.div>
+                        )
+                    }
+
                 </button>
 
             </form> 
 
-            
-
             <div className={styles.bottomText}>  
-  
+
                 <motion.div 
                     className={styles.userText}
                     initial='initial'
-                    animate={isGuest ? 'animate' : undefined}
-                    variants={userText}
+                    animate='animate'
+                    variants={
+                        componentDidMount.current 
+                            ? undefined
+                            : isGuest
+                                ? hideUserText 
+                                : showUserText
+                    }
                     >
                     <div>Don&apos;t have an account?</div>
                     <div>Sing in as a <span onClick={enableGuestSignIn}>guest</span></div>
@@ -95,37 +131,19 @@ const Login = () => {
                 <motion.div 
                     className={styles.guestText}
                     initial='initial'
-                    animate={isGuest ? 'animate' : undefined}
-                    variants={guestText}
+                    animate='animate'
+                    variants={
+                        componentDidMount.current 
+                            ? undefined
+                            : isGuest
+                                ? showGuestText 
+                                : hideGuestText
+                    }
                     >
                     <div>Return to the standard <span onClick={cancelGuestSignIn}>login</span></div>
                 </motion.div>
 
             </div>
-
-
-            {/* <div className={styles.bottomText}>  
-  
-  <motion.div 
-      className={styles.userText}
-      initial='initial'
-      animate={isGuest ? 'animate' : undefined}
-      variants={userText}
-      >
-      <div>Don&apos;t have an account?</div>
-      <div>Sing in as a <span onClick={enableGuestSignIn}>guest</span></div>
-  </motion.div>
-
-  <motion.div 
-      className={styles.guestText}
-      initial='initial'
-      animate={isGuest ? 'animate' : undefined}
-      variants={guestText}
-      >
-      <div>Return to the standard <span onClick={cancelGuestSignIn}>login</span></div>
-  </motion.div>
-
-</div> */}
              
         </div>
     )

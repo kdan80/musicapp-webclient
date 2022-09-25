@@ -8,7 +8,7 @@ $spacing: 2rem;
 .login {
     color: colors.$txt-main;
     padding: 4rem 3rem;
-    width: 100vw;
+    width: 100%;
     min-height: 100%;
     background: colors.$bg-card;
     overflow: clip;
@@ -31,6 +31,7 @@ $spacing: 2rem;
         border-radius: $border-radius;
         padding: $input-padding;
         font-weight: 700;
+        font-size: 1.1rem;
         box-shadow: 0 1px 16px rgba(0, 0, 0, .2), 0 2px 32px rgba(0, 0, 0, .1);
         margin-bottom: 2rem;
         margin-top: 1rem;
@@ -61,10 +62,14 @@ $spacing: 2rem;
         position: relative;
     }
 
+    .guestText {
+        opacity: 0;
+    }
+
     @media screen and (min-width: 740px) {
         width: auto;
         min-height: auto;
-        height: 550px;
+        height: 540px;
         width: 500px;
         border-radius: 6px;
         background: hsl(0, 0%, 6%, .9);
