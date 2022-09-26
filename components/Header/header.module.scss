@@ -1,0 +1,42 @@
+@use 'styles/colors';
+
+.header {
+    width: 100%;
+    min-width: 400px;
+    color: colors.$txt-main;
+    background-color: #202020;
+    padding: 1rem 1.5rem;
+
+    .topRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .bottomRow{
+        margin-top: 1rem;
+    }
+
+    .logoutBtn {
+        color: colors.$txt-main;
+        
+
+        &:hover {
+            color: colors.$txt-hero;
+        }
+    }
+
+    .topOptions {
+        display: none;
+    }
+
+    @media screen and (min-width: 600px) {
+        .topOptions {
+            display: flex;
+        }
+
+        .bottomRow {
+            display: none;
+        }
+    }
+}

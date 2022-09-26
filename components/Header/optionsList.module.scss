@@ -1,0 +1,30 @@
+@use 'styles/colors';
+
+.optionsList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    button {
+        color: colors.$txt-subdued;
+        font-weight: 600;
+
+        &:hover {
+            color: colors.$txt-main
+        }
+
+        &:focus {
+            color: colors.$txt-hero;
+        }
+    }
+
+    .option {
+        
+    }
+
+    @media screen and (min-width: 600px) {
+        flex-direction: row;
+        gap: 3rem;
+        
+    }
+}

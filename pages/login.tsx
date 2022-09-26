@@ -1,14 +1,15 @@
 import React from 'react'
 import type { NextPage, GetServerSideProps } from 'next'
-import Layout from 'components/Layout'
+import styles from 'styles/Login.module.scss'
 import Login from 'components/Login/Login'
 
 const LoginPage: NextPage = () => {
     
     return (
-        <Layout>
+        <div className={styles.login}>
+            <div className={styles.background} />
             <Login />
-        </Layout>
+        </div>
     )
 }
 

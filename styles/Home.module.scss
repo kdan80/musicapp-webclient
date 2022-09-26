@@ -1,0 +1,6 @@
+@use 'styles/colors';
+
+.home {
+    height: 100%;
+    background-color: colors.$bg-main;
+}
