@@ -11,6 +11,7 @@ const Login = () => {
     const router = useRouter()
 
     const [isGuest, setIsGuest] = React.useState<boolean>(false)
+    const [errorMessage, setErrorMessage] = React.useState<string>('')
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
 
@@ -19,11 +20,19 @@ const Login = () => {
 
         if (!username || !password) return
 
-        const response = await loginUser(username, password)
-        console.log('login')
-        if (response.status !== 200) return
+        try {
 
-        return router.push('/')
+            const response = await loginUser(username, password)
+            //if (response.status !== 200) return
+
+            return router.push('/')
+
+        } catch (err: any) {
+            console.log('error: ', err.response.data.message)
+            setErrorMessage(err.response.data.message)
+        }
+
+        
     }   
 
     const enableGuestSignIn = () => {
@@ -80,6 +89,14 @@ const Login = () => {
                     onChange={handleChange}
                     required 
                 />
+
+                {
+                    errorMessage && (
+                        <motion.div
+                            className={styles.errorMessage}
+                        >{errorMessage}</motion.div>
+                    )
+                }
 
                 <button type='submit'>
                     
