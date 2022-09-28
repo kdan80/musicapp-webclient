@@ -64,6 +64,9 @@ button {
     background: none;
     border: none;
     transition: all 300ms ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 input, button {

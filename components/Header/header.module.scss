@@ -14,16 +14,33 @@
     }
 
     .bottomRow{
-        margin-top: 1rem;
+        margin-top: 2rem;
     }
 
-    .logoutBtn {
+    .userBtn {
         color: colors.$txt-main;
-        
+        gap: 1rem;
 
-        &:hover {
+        .icon {
+            color: colors.$txt-main;
+            background-color: colors.$hero;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .username {
+            display: none;
+            transition: all 300ms ease-in-out
+        }
+
+        :hover.username {
             color: colors.$txt-hero;
         }
+        
     }
 
     .topOptions {
@@ -31,12 +48,17 @@
     }
 
     @media screen and (min-width: 600px) {
+        padding: 1rem 3rem;
         .topOptions {
             display: flex;
         }
 
         .bottomRow {
             display: none;
+        }
+
+        .userBtn .username { 
+            display: flex;
         }
     }
 }

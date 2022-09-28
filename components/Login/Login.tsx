@@ -2,8 +2,8 @@ import React from 'react'
 import styles from './login.module.scss'
 import { AuthContext } from 'components/auth/AuthContext'
 import { useRouter } from 'next/router'
-import { motion } from 'framer-motion'
-import { hideGuestText, showGuestText, hideUserText, showUserText, buttonText } from './login.animations'
+import { motion, useAnimationControls } from 'framer-motion'
+import { userText, guestText, buttonText } from './login.animations'
 
 const Login = () => {
 
@@ -11,6 +11,8 @@ const Login = () => {
     const router = useRouter()
 
     const [isGuest, setIsGuest] = React.useState<boolean>(false)
+    const userControls = useAnimationControls()
+    const guestControls = useAnimationControls()
     const [errorMessage, setErrorMessage] = React.useState<string>('')
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
@@ -39,12 +41,16 @@ const Login = () => {
         setIsGuest(true)
         setUsername('guest')
         setPassword('@Aa34567891')
+        userControls.start('hide')
+        guestControls.start('show')
     }
 
     const cancelGuestSignIn = () => {
         setIsGuest(false)
         setUsername('')
         setPassword('')
+        userControls.start('show')
+        guestControls.start('hide')
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,14 +58,20 @@ const Login = () => {
         if (e.target.name === 'password') return setPassword(e.target.value)
     }
 
-    // This is used to disable animations on first render
+    // We need to keep track of the initial render in order to control certain animations
+    // If this is the first render hide & move the guest text component and disable button animations
+    // Subsequent renders will allow animations
     const componentDidMount = React.useRef(true)
     React.useEffect(() => {
         if (componentDidMount.current) {
+            guestControls.start('hide')
             componentDidMount.current = false;
             return;
         }
     });
+
+    console.log('componendDidMount: ', componentDidMount.current)
+    console.log('isGuest: ', isGuest)
 
     return (
         <div className={styles.login}>
@@ -103,9 +115,11 @@ const Login = () => {
                     {
                         !isGuest && (
                             <motion.div 
+                                layout
                                 initial='initial'
                                 animate='animate'
-                                variants={componentDidMount.current ? undefined : buttonText}>
+                                variants={componentDidMount.current ? undefined : buttonText}
+                                >
                                 Sign in
                             </motion.div>
                         )
@@ -114,9 +128,10 @@ const Login = () => {
                     {
                         isGuest && (
                             <motion.div 
+                                layout
                                 initial='initial'
                                 animate='animate'
-                                variants={componentDidMount.current ? undefined : buttonText}
+                                variants={buttonText}
                                 >
                                 Sign in as guest
                             </motion.div>
@@ -131,15 +146,9 @@ const Login = () => {
 
                 <motion.div 
                     className={styles.userText}
-                    initial='initial'
-                    animate='animate'
-                    variants={
-                        componentDidMount.current 
-                            ? undefined
-                            : isGuest
-                                ? hideUserText 
-                                : showUserText
-                    }
+                    layout
+                    animate={userControls}
+                    variants={userText}
                     >
                     <div>Don&apos;t have an account?</div>
                     <div>Sing in as a <span onClick={enableGuestSignIn}>guest</span></div>
@@ -147,15 +156,9 @@ const Login = () => {
 
                 <motion.div 
                     className={styles.guestText}
-                    initial='initial'
-                    animate='animate'
-                    variants={
-                        componentDidMount.current 
-                            ? undefined
-                            : isGuest
-                                ? showGuestText 
-                                : hideGuestText
-                    }
+                    layout
+                    animate={guestControls}
+                    variants={guestText}
                     >
                     <div>Return to the standard <span onClick={cancelGuestSignIn}>login</span></div>
                 </motion.div>

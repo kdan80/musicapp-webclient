@@ -80,7 +80,10 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     }
 
     React.useEffect(() => {
-        if (cookies.user) setIsLoggedIn(true)
+        if (cookies.user) {
+            setIsLoggedIn(true)
+            setUser(cookies.user)
+        }
         setIsLoading(false)
     }, [isLoading, isLoggedIn, cookies])
 
