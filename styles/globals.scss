@@ -86,7 +86,7 @@ input {
 
     &::placeholder {
         color: colors.$txt-placeholder;
-        background-color: colors.$input-bg;
+        //background-color: colors.$input-bg;
         opacity: 1;
     }
 
@@ -112,8 +112,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active {
-    box-shadow: 0 0 0 30px colors.$input-bg inset !important;
-    -webkit-text-fill-color: colors.$txt-main !important;
+   box-shadow: 0 0 0 30px colors.$input-bg inset !important;
+   -webkit-text-fill-color: colors.$txt-main !important;
 }
 
 
