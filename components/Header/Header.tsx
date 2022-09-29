@@ -5,12 +5,12 @@ import { useRouter } from 'next/router'
 import OptionsList from './OptionsList'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import UserDropdown from './UserDropdown'
+import LogoutModal from './LogoutModal'
 
 const Header = () => {
 
     const { logoutUser, user } = React.useContext(AuthContext)
-    const [dropdownIsOpen, setDropdownIsOpen] = React.useState<boolean>(false);
+    const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
     const router = useRouter()
 
     const logout = async() => {
@@ -29,7 +29,7 @@ const Header = () => {
                 <button 
                     className={styles.userBtn}
                     title={user || undefined}
-                    onClick={() => setDropdownIsOpen(true)}
+                    onClick={() => setModalIsOpen(true)}
                     type='button'
                     >
                         <div
@@ -44,15 +44,13 @@ const Header = () => {
             <div className={styles.bottomRow}>
                 <OptionsList />
             </div>
-            {
-                dropdownIsOpen && (
-                    <UserDropdown 
-                        dropdownIsOpen={dropdownIsOpen} 
-                        setDropdownIsOpen={setDropdownIsOpen} 
+            
+                    <LogoutModal 
+                        modalIsOpen={modalIsOpen} 
+                        setModalIsOpen={setModalIsOpen} 
                         logout={logout} 
                     />
-                )
-            }
+            
         </div>
     )
 }
