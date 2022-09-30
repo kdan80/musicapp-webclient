@@ -1,6 +1,13 @@
+@use 'styles/colors';
+@use 'styles/vars';
+
 .dashboard {
     border: 1px solid green;
     min-height: 100%;
-
+    padding: vars.$pg-pad-sm;
     flex: 1 1 auto;
+
+    @media screen and (min-width: 600px) {
+        padding: vars.$pg-pad-lg;
+    }
 }

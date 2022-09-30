@@ -22,6 +22,8 @@ const Home: NextPage = () => {
         })()
     }, [])
 
+    console.log(albums[0])
+
     return (
         <div className={styles.home}>
             <Head>
@@ -31,7 +33,7 @@ const Home: NextPage = () => {
             </Head>
 
             <Header />
-            <Dashboard />
+            <Dashboard albums={albums} />
             
         </div>
     )
