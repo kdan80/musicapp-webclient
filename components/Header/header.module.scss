@@ -1,8 +1,9 @@
 @use 'styles/colors';
+@use 'styles/vars';
 
 .header {
     width: 100%;
-    min-width: 400px;
+    min-width: vars.$min-page-width;
     color: colors.$txt-main;
     background-color: #202020;
     padding: 1rem 1.5rem;

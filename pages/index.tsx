@@ -3,6 +3,7 @@ import Head from 'next/head'
 import React from 'react'
 import axios from 'axios'
 import Header from 'components/Header/Header'
+import Dashboard from 'components/Dashboard/Dashboard'
 import styles from 'styles/Home.module.scss'
 
 const Home: NextPage = () => {
@@ -30,12 +31,7 @@ const Home: NextPage = () => {
             </Head>
 
             <Header />
-
-            {
-                albums && albums.map((album, index) => (
-                    <div key={index}>{album.title}</div>
-                ))
-            }
+            <Dashboard />
             
         </div>
     )

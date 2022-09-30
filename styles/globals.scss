@@ -1,5 +1,6 @@
 @use 'fonts';
 @use 'styles/colors';
+@use 'styles/vars';
 
 * {
     padding: 0;
@@ -11,17 +12,21 @@ html,
 body,
 #__next {
     height: 100%;
+    min-width: vars.$min-page-width;
 }
 
 html {
     scroll-behavior: smooth;
+    
 }
 
 body {
     overflow: overlay;
     overflow-x: hidden;
+    
     font-size: 16px;
     font-family: fonts.$sans;
+    color: colors.$txt-main;
 }
 
 /* Scrollbar Styles */
