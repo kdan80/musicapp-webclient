@@ -15,7 +15,7 @@ const Home: NextPage = () => {
               
             const response = await axios({
                 method: 'get',
-                url: 'http://192.168.1.21:4000/album?page=1&limit=10',
+                url: 'http://192.168.1.21:4000/album?page=1&limit=100',
                 withCredentials: true
             })
             setAlbums(response.data.results)

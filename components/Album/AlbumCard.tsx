@@ -41,12 +41,17 @@ const AlbumCard: React.FC<Props> = ({album}) => {
 
             <div
                 className={styles.art}> 
-                {/* <Image src='./' alt='album art' /> */}
+                <Image 
+                    layout='responsive'
+                    height='100%'
+                    width='100%' 
+                    src={`http://192.168.1.26:9000/media/${album.path}/album_art.jpg`} 
+                    alt='album art' />
             </div>
             <div
                 className={styles.details}>
-                    <div>{album.title}</div>
-                    <div>{album.artist}</div>
+                    <div className={styles.title}>{album.title}</div>
+                    <div className={styles.artist}>{album.artist}</div>
             </div>
         </div>
     )

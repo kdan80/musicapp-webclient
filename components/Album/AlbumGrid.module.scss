@@ -1,8 +1,15 @@
 @use 'styles/vars';
 
 .grid {
+    border: 1px solid green;
     display: flex;
     flex-flow: row wrap;
-    justify-content: flex-start;
-    gap: 1rem;
+    //justify-content: center;
+    gap: vars.$album-grid-gap;
+}
+
+@media screen and (min-width: 600px) {
+    .grid {
+        gap: 1.5rem;
+    }
 }
