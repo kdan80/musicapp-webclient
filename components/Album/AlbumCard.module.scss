@@ -2,6 +2,7 @@
 @use 'styles/vars';
 
 $gap: vars.$album-grid-gap;
+$subdued-text: #a5a5a5;
 
 // The following values are calculations for the album card width
 // They are based on a percentage width of the flex container (minus the flex gap)
@@ -15,46 +16,118 @@ $width-1600: calc((1/8 * 100%) - ($gap * 7/8));
 $width-1920: calc((1/9 * 100%) - ($gap * 8/9));
 
 .card {
-    //border: 1px dashed orangered;
-    cursor: pointer;
     width: $width-mob;
-    //flex: 1 1 1;
     flex-shrink: 0;
     contain: layout style paint;
+    margin-bottom: 1rem;
+
+   
 }
 
 .art {
+    position: relative;
     border-radius: 4px;
-    //border: 1px solid red;
     overflow: hidden;
-    //width: 100%;
     flex-shrink: 0;
+
+    button {
+        position: absolute;
+        bottom: .5rem;
+        right: .5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        height: 42px;
+        width: 42px;
+        border-radius: 50%;
+        background-color: rgba(0,0,0,.8);
+
+        @media screen and (min-width: 600px) {
+            height: 4.5rem;
+            width: 4.5rem;
+            margin: auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            color: #cacaca;
+        }
+    }
+}
+
+// Play button animations for large screens
+@media screen and (min-width: 600px) {
+    .art button {
+        scale: 0;
+        transition: scale 300ms ease-in-out;
+
+        &:hover {
+            transition: all 150ms ease-in-out;
+        }
+    }
+
+    .card:hover .art button {
+        scale: 1;
+
+        &:hover {
+            transition: all 150ms ease-in-out;
+            background-color: rgba(22, 155, 69, .9);
+            color: #fff;
+            scale: 1.2;
+        }
+    }
+}
+
+.playIcon {
+    margin-left: .15rem;
+    width: .8rem;
+    height: .8rem;
+
+    @media screen and (min-width: 600px) {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
 }
 
 .details {
     display: flex;
     flex-flow: column;
     justify-content: center;
-    margin-top: 1rem;
-    //border: 1px solid red;
+    margin-top: 0.5rem;
 }
 
 .artist {
     color: #a5a5a5;
-    margin-top: .2rem;
+    margin-top: .25rem;
+    font-size: .9rem;
+}
+
+.art,
+.artist,
+.title {
+    cursor: pointer;
 }
 
 .artist, .title {
     overflow: hidden;
     text-align: center;
-    //border: 1px dashed red;
     white-space: nowrap;
     text-overflow: ellipsis;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 @media screen and (min-width: 500px) {
+
     .card {
         width: $width-500;
+    }
+
+    .artist {
+        color: #757575;
     }
 }
 

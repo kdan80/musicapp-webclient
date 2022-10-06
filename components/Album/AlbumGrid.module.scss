@@ -1,10 +1,8 @@
 @use 'styles/vars';
 
 .grid {
-    border: 1px solid green;
     display: flex;
     flex-flow: row wrap;
-    //justify-content: center;
     gap: vars.$album-grid-gap;
 }
 
