@@ -20,8 +20,6 @@ $width-1920: calc((1/9 * 100%) - ($gap * 8/9));
     flex-shrink: 0;
     contain: layout style paint;
     margin-bottom: 1rem;
-
-   
 }
 
 .art {
@@ -56,8 +54,23 @@ $width-1920: calc((1/9 * 100%) - ($gap * 8/9));
     }
 }
 
+.overlay {
+    position: absolute;
+    background-color: black;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: all 300ms ease-in-out;
+}
+
 // Play button animations for large screens
 @media screen and (min-width: 600px) {
+    .card:hover .overlay {
+        opacity: .5;
+    }
+
     .art button {
         scale: 0;
         transition: scale 300ms ease-in-out;
@@ -76,6 +89,16 @@ $width-1920: calc((1/9 * 100%) - ($gap * 8/9));
             color: #fff;
             scale: 1.2;
         }
+    }
+}
+
+// Play button animations for small screens
+@media screen and (max-width: 600px) {
+    button.clicked {
+        color: rgba(22, 155, 69);
+        outline: 1px solid #169b45;
+        outline-offset: 12px;
+        box-shadow: 0 0 24px #169b45;
     }
 }
 

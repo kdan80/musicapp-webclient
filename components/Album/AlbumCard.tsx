@@ -37,13 +37,18 @@ interface Props {
 
 const AlbumCard: React.FC<Props> = ({album}) => {
 
-    const [showButton, setShowButton] = React.useState<boolean>(false)
+    const [buttonClicked, setButtonClicked] = React.useState<boolean>(false)
+
+    const handleClick = () => {
+        setButtonClicked(true)
+        setTimeout(() => {
+            setButtonClicked(false)
+        }, 250)
+    }
 
     return (
         <div
             className={styles.card}
-            onMouseEnter={() => setShowButton(true)}
-            onMouseLeave={() => setShowButton(false)}
             >
             <div
                 className={styles.art}> 
@@ -53,9 +58,11 @@ const AlbumCard: React.FC<Props> = ({album}) => {
                     width='100%' 
                     src={`http://192.168.1.26:9000/media/${album.path}/album_art.jpg`} 
                     alt='album art' />
+                <div className={styles.overlay} />
                 <button 
                     type='button'
-                    className='playButton'
+                    className={ buttonClicked ? styles.clicked : undefined }
+                    onClick={handleClick}
                     >
                     <FontAwesomeIcon className={styles.playIcon} icon={faPlay} />
                 </button>
@@ -70,20 +77,3 @@ const AlbumCard: React.FC<Props> = ({album}) => {
 }
 
 export default AlbumCard
-
-
-// <motion.button 
-//                     type='button'
-//                     layout
-//                     initial='hide'
-//                     animate={ showButton ? 'show' : undefined}
-//                     whileHover={{
-//                         scale: 1.2,
-//                         backgroundColor: 'rgba(22, 155, 69, .9)',
-//                         transition: { duration: .15 },
-//                     }}
-//                     transition={{
-//                         duration: .15
-//                     }}
-//                     variants={buttonVariants}
-//                     >
