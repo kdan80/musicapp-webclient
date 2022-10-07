@@ -62,7 +62,7 @@ $width-1920: calc((1/9 * 100%) - ($gap * 8/9));
     left: 0;
     right: 0;
     bottom: 0;
-    transition: all 300ms ease-in-out;
+    transition: all 150ms ease-in-out;
 }
 
 // Play button animations for large screens
@@ -73,7 +73,7 @@ $width-1920: calc((1/9 * 100%) - ($gap * 8/9));
 
     .art button {
         scale: 0;
-        transition: scale 300ms ease-in-out;
+        transition: scale 150ms ease-in-out;
 
         &:hover {
             transition: all 150ms ease-in-out;
