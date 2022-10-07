@@ -50,6 +50,8 @@ $width-1920: calc((1/9 * 100%) - ($gap * 8/9));
             top: 0;
             bottom: 0;
             color: #cacaca;
+
+            
         }
     }
 }
@@ -88,6 +90,10 @@ $width-1920: calc((1/9 * 100%) - ($gap * 8/9));
             background-color: rgba(22, 155, 69, .9);
             color: #fff;
             scale: 1.2;
+        }
+
+        &:active {
+            background-color: colors.$txt-hero;
         }
     }
 }
