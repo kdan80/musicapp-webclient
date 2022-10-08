@@ -1,0 +1,59 @@
+@use 'styles/colors';
+@use 'styles/vars';
+
+$bg-media-btn: #cecece;
+
+.mediaBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+
+    &Icon {
+        color: $bg-media-btn;
+        transition: all 300ms ease-in-out;
+    }
+}
+
+.hiddenBtn {
+    display: none;
+}
+
+@media screen and (max-width: 700px) {
+    .mediaBtnClicked {
+        background-color: rgba(22, 155, 69, .7);
+        color: rgba(22, 155, 69);
+        outline: 1px solid #169b45;
+        outline-offset: 8px;
+        box-shadow: 0 0 16px rgba(22, 155, 69, .2);
+    }
+}
+
+@media screen and (min-width: 700px) {
+
+    .mediaBtn {
+        font-size: 1.25rem;
+        background-color: transparent;
+        height: 3.25rem;
+        width: 3.25rem;
+
+        &:hover {
+            background-color: rgba(22, 155, 69, .65);
+        }
+
+        &:hover &Icon {
+            color: #fff;
+        }
+
+        &:active {
+            background-color: colors.$hero-hover;
+        }
+    }
+
+    .hiddenBtn {
+        display: block;
+    }
+}

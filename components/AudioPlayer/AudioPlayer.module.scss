@@ -1,0 +1,106 @@
+@use 'styles/colors';
+@use 'styles/vars';
+
+$bg-media-btn: #cecece;
+
+.player {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.flexContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: colors.$bg-pane;
+}
+
+.nowPlaying {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 1.25rem;
+
+    &Info {
+        display: flex;
+        align-items: center;
+        padding: .4rem 0;
+        gap: .5rem;
+    }
+
+    &Img {
+        width: 50px;
+    }
+
+    &Details {
+        font-size: .875rem;
+    }
+
+    &Artist {
+        margin-top: .2rem;
+        color: rgba(255, 255, 255, .4);
+    }
+
+    &SongTitle {
+        color: #fff;
+    }
+
+    &Info,
+    &Img,
+    &Controls,
+    &VolControls {
+        height: 100%;
+    }
+
+    &Controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &VolControls {
+        display: none;
+    }
+
+}
+
+.nowPlaying {
+
+    &Img,
+    &VolControls {
+        border: 1px dashed red;
+    }
+}
+
+.mobileSpacer {
+    width: 100%;
+    height: 1.5rem;
+    background-color: rgba(0,0,0,.7);
+    backdrop-filter: blur(8px);
+}
+
+
+@media screen and (min-width: 700px) {
+    .flexContainer {
+        flex-direction: column-reverse;
+    }
+
+    .nowPlaying {
+        padding: 0 .5rem;
+
+        &Controls {
+            gap: 1rem;
+        }
+
+        &VolControls {
+            display: flex;
+        }
+    }
+
+    .mobileSpacer {
+        display: none;
+    }
+}

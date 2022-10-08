@@ -5,6 +5,7 @@ import axios from 'axios'
 import Header from 'components/Header/Header'
 import Dashboard from 'components/Dashboard/Dashboard'
 import styles from 'styles/Home.module.scss'
+import AudioPlayer from 'components/AudioPlayer/AudioPlayer'
 
 const Home: NextPage = () => {
 
@@ -34,7 +35,7 @@ const Home: NextPage = () => {
 
             <Header />
             <Dashboard albums={albums} />
-            
+            <AudioPlayer />
         </div>
     )
 }
