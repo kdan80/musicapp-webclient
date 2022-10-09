@@ -11,6 +11,7 @@ $bg-media-btn: #cecece;
 }
 
 .flexContainer {
+    height: 100%;
     display: flex;
     flex-direction: column;
     background-color: colors.$bg-pane;
@@ -18,20 +19,30 @@ $bg-media-btn: #cecece;
 
 .nowPlaying {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     height: 100%;
     padding: 0 1.25rem;
 
-    &Info {
+    &Info,
+    &Controls,
+    &VolControls {
+        flex: 1;
         display: flex;
         align-items: center;
+    }
+
+    &Info {
         padding: .4rem 0;
         gap: .5rem;
+        height: 100%;
     }
 
     &Img {
-        width: 50px;
+        
+    }
+
+    &Progress {
+        display: none;
     }
 
     &Details {
@@ -55,22 +66,24 @@ $bg-media-btn: #cecece;
     }
 
     &Controls {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        justify-content: flex-end;
         gap: 1rem;
     }
 
     &VolControls {
         display: none;
+        justify-content: flex-end;
     }
 
 }
 
 .nowPlaying {
 
-    &Img,
-    &VolControls {
+    &Img
+    //&Info,
+    //&Controls,
+    //&VolControls 
+    {
         border: 1px dashed red;
     }
 }
@@ -93,14 +106,24 @@ $bg-media-btn: #cecece;
 
         &Controls {
             gap: 1rem;
+            justify-content: center;
         }
 
         &VolControls {
             display: flex;
         }
+
+        
     }
 
     .mobileSpacer {
         display: none;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .nowPlayingProgress {
+        display: block;
+        margin-left: 2rem;
     }
 }

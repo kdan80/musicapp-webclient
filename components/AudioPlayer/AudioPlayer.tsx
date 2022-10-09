@@ -4,6 +4,9 @@ import ProgressBar from './ProgressBar'
 import PlayButton from './MediaButtons/PlayButton'
 import SkipForward from './MediaButtons/SkipForward'
 import SkipBackward from './MediaButtons/SkipBackward'
+import Image from 'next/image'
+import Mute from './MediaButtons/Mute'
+import VolumeSlider from './MediaButtons/VolumeSlider'
 
 const AudioPlayer = () => {
 
@@ -15,10 +18,20 @@ const AudioPlayer = () => {
                         
                         {/* Left panel - img & info */}
                         <div className={styles.nowPlayingInfo}>
-                            <div className={styles.nowPlayingImg}></div>
+                            {/* <img src='/album_art.jpg' className={styles.nowPlayingImg} alt='album art' /> */}
+                            <Image 
+                                className={styles.nowPlayingImg}
+                                layout='fixed'
+                                height={50}
+                                width={50} 
+                                src='/album_art.jpg'
+                                alt='album art' />
                             <div className={styles.nowPlayingDetails}>
                                 <div className={styles.nowPlayingSongTitle}>The Chain (Remastered)</div>
                                 <div className={styles.nowPlayingArtist}>Fleetwood Mac</div>
+                            </div>
+                            <div className={styles.nowPlayingProgress}>
+                                2:10 / 3:20
                             </div>
                         </div>
 
@@ -31,7 +44,8 @@ const AudioPlayer = () => {
 
                         {/* Right panel - volume controls */}
                         <div className={styles.nowPlayingVolControls}>
-                            Vol controls
+                            <Mute />
+                            <VolumeSlider />
                         </div>
                 </div>
                 <ProgressBar />

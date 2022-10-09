@@ -4,9 +4,10 @@ import styles from './MediaButton.module.scss'
 interface Props {
     children: any
     className?: string
+    clickHandler?: () => void
 }
 
-const MediaButton: React.FC<Props> = ({children, className}) => {
+const MediaButton: React.FC<Props> = ({children, className, clickHandler}) => {
 
     const [buttonClicked, setButtonClicked] = React.useState<boolean>(false)
 
@@ -15,6 +16,7 @@ const MediaButton: React.FC<Props> = ({children, className}) => {
         setTimeout(() => {
             setButtonClicked(false)
         }, 300)
+        if (clickHandler) clickHandler()
     }
     
     const mediaBtn = `${styles.mediaBtn} ${className}`

@@ -1,0 +1,83 @@
+@use 'styles/colors';
+
+$sliderWidth: 6rem;
+$track-height: 4px;
+$trackColor: #444;
+$handle-size: 12px;
+$handleColor: #cecece;
+$handleZIndex: 3;
+$handle-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+// Margin-top offset to center the handle on the track in chrome based browsers
+$handle-offset: calc(($track-height) - ($handle-size / 2));
+
+.volumeSlider * {
+    padding: 0;
+    margin: 0;  
+    border: none;
+}
+
+.volumeSlider {
+    width: $sliderWidth;
+    position: relative;
+
+    input[type="range"] {
+        position: relative;
+        vertical-align: middle;
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        border: none;
+        width: 100%;
+        cursor: pointer;
+        z-index: 3;
+
+        // Firefox slider styles
+        &::-moz-range-thumb {
+            border: none;
+            height: $handle-size;
+            width: $handle-size;
+            background-color: $handleColor;
+            box-shadow: $handle-shadow;
+        }
+
+        &::-moz-range-track {
+            background-color: transparent;
+        }
+
+        // Chrome based browser slider styles
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: $handle-size;
+            width: $handle-size;
+            margin-top: $handle-offset;
+            border-radius: calc($handle-size / 2);
+            background-color: $handleColor;
+            box-shadow: $handle-shadow;
+        }
+        
+        &::-webkit-slider-runnable-track {
+            background-color: transparent;
+        }
+
+    }
+
+    &Track,
+    &Progress {
+        height: $track-height;
+        border-radius: calc($track-height / 2);
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
+    &Track {
+        width: 100%;
+        background-color: $trackColor;
+    }
+
+    &Progress {
+        background-color: colors.$hero;
+    }
+ }
