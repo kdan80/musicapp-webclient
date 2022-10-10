@@ -45,7 +45,7 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying}) => {
         setTimeout(() => {
             setButtonClicked(false)
         }, 250)
-        setNowPlaying(album.track_list)
+        setNowPlaying(album)
     }
 
     return (

@@ -11,9 +11,7 @@ import AlbumGrid from 'components/Album/AlbumGrid'
 const Home: NextPage = () => {
 
     const [albums, setAlbums] = React.useState([])
-    const [nowPlaying, setNowPlaying] = React.useState([])
-
-    console.log('now: ', nowPlaying)
+    const [nowPlaying, setNowPlaying] = React.useState()
 
     React.useEffect(() => {
         (async () => {
@@ -40,7 +38,7 @@ const Home: NextPage = () => {
                 <AlbumGrid albums={albums} setNowPlaying={setNowPlaying} />
             </Dashboard>
             {
-                nowPlaying.length && (
+                nowPlaying && (
                     <AudioPlayer nowPlaying={nowPlaying} />
                 )
             }
