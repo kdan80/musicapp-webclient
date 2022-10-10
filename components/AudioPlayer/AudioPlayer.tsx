@@ -8,7 +8,7 @@ import Image from 'next/image'
 import Mute from './MediaButtons/Mute'
 import VolumeSlider from './MediaButtons/VolumeSlider'
 
-const AudioPlayer = () => {
+const AudioPlayer = ({nowPlaying}) => {
 
     return (
         <div className={styles.player}>
@@ -51,6 +51,13 @@ const AudioPlayer = () => {
                 <ProgressBar />
             </div>
             <div className={styles.mobileSpacer} />
+            {
+                nowPlaying.length && (
+                    <audio>
+                        <source src={`http:192.168.1.21:4000/stream/${nowPlaying[0].nano_id}`} type="audio/mpeg"/>
+                    </audio>
+                )
+            }
         </div>
     )
 }

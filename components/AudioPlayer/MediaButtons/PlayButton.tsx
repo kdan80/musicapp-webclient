@@ -2,15 +2,21 @@ import React from 'react'
 import styles from './MediaButton.module.scss'
 import MediaButton from './MediaButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons'
 
 const PlayButton = () => {
+
+    const [paused, setPaused] = React.useState<boolean>(false)
+    
+    const handleClick = () => {
+        setPaused(prev => !prev)
+    }
     
     return (
-        <MediaButton>
+        <MediaButton clickHandler={handleClick}>
             <FontAwesomeIcon 
                 className={styles.mediaBtnIcon}
-                icon={faPlay} />
+                icon={paused ? faPause : faPlay} />
         </MediaButton>
     )
 }

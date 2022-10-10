@@ -33,9 +33,10 @@ interface Props {
         track_list: [Track]
         path: string
     }
+    setNowPlaying: () => void
 }
 
-const AlbumCard: React.FC<Props> = ({album}) => {
+const AlbumCard: React.FC<Props> = ({album, setNowPlaying}) => {
 
     const [buttonClicked, setButtonClicked] = React.useState<boolean>(false)
 
@@ -44,6 +45,7 @@ const AlbumCard: React.FC<Props> = ({album}) => {
         setTimeout(() => {
             setButtonClicked(false)
         }, 250)
+        setNowPlaying(album.track_list)
     }
 
     return (

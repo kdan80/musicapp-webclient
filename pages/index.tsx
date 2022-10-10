@@ -6,10 +6,14 @@ import Header from 'components/Header/Header'
 import Dashboard from 'components/Dashboard/Dashboard'
 import styles from 'styles/Home.module.scss'
 import AudioPlayer from 'components/AudioPlayer/AudioPlayer'
+import AlbumGrid from 'components/Album/AlbumGrid'
 
 const Home: NextPage = () => {
 
     const [albums, setAlbums] = React.useState([])
+    const [nowPlaying, setNowPlaying] = React.useState([])
+
+    console.log('now: ', nowPlaying)
 
     React.useEffect(() => {
         (async () => {
@@ -23,8 +27,6 @@ const Home: NextPage = () => {
         })()
     }, [])
 
-    console.log(albums[0])
-
     return (
         <div className={styles.home}>
             <Head>
@@ -34,11 +36,19 @@ const Home: NextPage = () => {
             </Head>
 
             <Header />
-            <Dashboard albums={albums} />
-            <AudioPlayer />
+            <Dashboard albums={albums} >
+                <AlbumGrid albums={albums} setNowPlaying={setNowPlaying} />
+            </Dashboard>
+            {
+                nowPlaying.length && (
+                    <AudioPlayer nowPlaying={nowPlaying} />
+                )
+            }
         </div>
     )
 }
+
+
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     
