@@ -1,14 +1,22 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import styles from './VolumeSlider.module.scss'
 
+interface Props {
+    volume: number
+    setVolume: Dispatch<SetStateAction<number>>
+    isMuted: boolean,
+    setIsMuted: Dispatch<SetStateAction<boolean>>
+}
 
-const VolumeSlider = () => {
+const VolumeSlider: React.FC<Props> = ({ volume, setVolume, isMuted, setIsMuted }) => {
 
-    const [volume, setVolume] = React.useState<number>(100)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setVolume(parseInt(e.target.value))
+        if (volume > 0) setIsMuted(false)
     }
+
+    const width = isMuted ? '0%' : `${volume}%`
 
     return (
         <div
@@ -20,13 +28,13 @@ const VolumeSlider = () => {
                 min={0}
                 max={100}
                 step={1}
-                value={volume}
+                value={isMuted ? 0 : volume}
                   />
             <div 
                 className={styles.volumeSliderTrack} />
             <div 
                 className={styles.volumeSliderProgress}
-                style={{ width: `${volume}%`}} />
+                style={{ width: width}} />
         </div>
     )
 }

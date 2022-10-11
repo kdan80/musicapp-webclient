@@ -39,7 +39,7 @@ const Home: NextPage = () => {
             </Dashboard>
             {
                 nowPlaying && (
-                    <AudioPlayer nowPlaying={nowPlaying} />
+                    <AudioPlayer album={nowPlaying} />
                 )
             }
         </div>

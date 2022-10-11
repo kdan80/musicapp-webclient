@@ -1,22 +1,25 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import styles from './MediaButton.module.scss'
 import MediaButton from './MediaButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons'
 
-const PlayButton = () => {
+interface Props {
+    isPlaying: boolean
+    setIsPlaying: Dispatch<SetStateAction<boolean>>
+}
 
-    const [paused, setPaused] = React.useState<boolean>(false)
-    
+const PlayButton: React.FC<Props> = ({isPlaying, setIsPlaying}) => {
+
     const handleClick = () => {
-        setPaused(prev => !prev)
+        setIsPlaying(prev => !prev)
     }
     
     return (
         <MediaButton clickHandler={handleClick}>
             <FontAwesomeIcon 
                 className={styles.mediaBtnIcon}
-                icon={paused ? faPause : faPlay} />
+                icon={isPlaying ? faPause : faPlay} />
         </MediaButton>
     )
 }
