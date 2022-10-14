@@ -1,5 +1,88 @@
+@use 'styles/colors';
+
 .progressBar {
     width: 100%;
     height: 5px;
-    background-color: aqua;
 }
+
+$handleSize: 16px;
+$handleColor: transparent;
+$handleShadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+$trackHeight: 4px;
+$handleOffset: calc(($trackHeight) - ($handleSize / 2) - 2px);
+$trackColor: #444;
+
+.progressBar {
+    width: 100%;
+    position: relative;
+
+    input[type="range"] {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        vertical-align: middle;
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        border: none;
+        padding: 0;
+        width: 100%;
+        height: 1px;
+        cursor: pointer;
+        z-index: 3;
+
+        // Firefox slider styles
+        &::-moz-range-thumb {
+            appearance: none;
+            border: none;
+            height: $handleSize;
+            width: $handleSize;
+            background-color: $handleColor;
+        }
+
+        &::-moz-range-track {
+            background-color: transparent;
+        }
+
+        // Chrome based browser slider styles
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            border: none;
+            height: $handleSize;
+            width: $handleSize;
+            margin-top: $handleOffset;
+            border-radius: calc($handleSize / 2);
+            background-color: $handleColor;
+            //box-shadow: $handleShadow;
+        }
+        
+        &::-webkit-slider-runnable-track {
+            height: $trackHeight;
+            background-color: transparent;
+        }
+
+    }
+
+    .track,
+    .progress {
+        height: $trackHeight;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
+    .track {
+        width: 100%;
+        background-color: $trackColor;
+    }
+
+    .progress {
+        background-color: colors.$hero;
+        border-radius: 0 calc($trackHeight / 2) calc($trackHeight / 2) 0;
+    }
+ }

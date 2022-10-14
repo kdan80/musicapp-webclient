@@ -13,7 +13,8 @@ const AudioPlayer = ({album}) => {
     const { title, artist, track_list } = album
     track_list.sort((a: any, b: any) => a.track_number - b.track_number)
     const [isPlaying, setIsPlaying] = React.useState<boolean>(true)
-    const [trackDuration, setTrackDuration] = React.useState<string>('0:00')
+    const [currentTime, setCurrentTime] = React.useState<number>(0)
+    const [trackDuration, setTrackDuration] = React.useState<number>(0)
     const [volume, setVolume] = React.useState<number>(100)
     const [isMuted, setIsMuted] = React.useState<boolean>(false)
     const [currentTrack, setCurrentTrack] = React.useState<number>(0)
@@ -35,11 +36,20 @@ const AudioPlayer = ({album}) => {
         return
     }
 
+    const getCurrentTime = () => {
+        if ( audioPlayerRef.current ) return setCurrentTime(audioPlayerRef.current.currentTime * 1000)
+        return setCurrentTime(0)
+    }
+
+    // Reset current track when a new album is loaded
+    React.useEffect(() => {
+        setCurrentTrack(0)
+        console.log(album.track_list)
+    }, [album])
+
     // Get current song duration
     React.useEffect(() => {
-        const durationInMilliSecs = track_list[currentTrack].duration * 1000
-        const duration = moment(durationInMilliSecs).format("m:ss")
-        setTrackDuration(duration)
+        setTrackDuration(track_list[currentTrack].duration * 1000)
     }, [currentTrack, track_list])
 
     // Play & pause functionality
@@ -83,7 +93,7 @@ const AudioPlayer = ({album}) => {
                                 <div className={styles.nowPlayingArtist}>{artist}</div>
                             </div>
                             <div className={styles.nowPlayingProgress}>
-                                2:10 / {trackDuration}
+                                {moment(currentTime).format('m:ss')} / {moment(trackDuration).format('m:ss')}
                             </div>
                         </div>
 
@@ -116,7 +126,9 @@ const AudioPlayer = ({album}) => {
                                 setVolume={setVolume} />
                         </div>
                 </div>
-                <ProgressBar />
+                <ProgressBar 
+                    currentTime={currentTime} 
+                    trackDuration={trackDuration} />
             </div>
             <div className={styles.mobileSpacer} />
             
@@ -126,6 +138,7 @@ const AudioPlayer = ({album}) => {
                 src={audioSrc} 
                 autoPlay={true} 
                 ref={audioPlayerRef}
+                onTimeUpdate={() => getCurrentTime()}
                 onPlay={() => setIsPlaying(true)} 
                 onPause={() => setIsPlaying(false)}
                 onEnded={getNextTrack}  
