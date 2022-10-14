@@ -6,12 +6,14 @@ import SkipButton from './MediaButtons/SkipButton'
 import Image from 'next/image'
 import Mute from './MediaButtons/Mute'
 import VolumeSlider from './MediaButtons/VolumeSlider'
+import moment from 'moment'
 
 const AudioPlayer = ({album}) => {
 
     const { title, artist, track_list } = album
     track_list.sort((a: any, b: any) => a.track_number - b.track_number)
     const [isPlaying, setIsPlaying] = React.useState<boolean>(true)
+    const [trackDuration, setTrackDuration] = React.useState<string>('0:00')
     const [volume, setVolume] = React.useState<number>(100)
     const [isMuted, setIsMuted] = React.useState<boolean>(false)
     const [currentTrack, setCurrentTrack] = React.useState<number>(0)
@@ -32,6 +34,13 @@ const AudioPlayer = ({album}) => {
         setAudioSrc(src)
         return
     }
+
+    // Get current song duration
+    React.useEffect(() => {
+        const durationInMilliSecs = track_list[currentTrack].duration * 1000
+        const duration = moment(durationInMilliSecs).format("m:ss")
+        setTrackDuration(duration)
+    }, [currentTrack, track_list])
 
     // Play & pause functionality
     React.useEffect(() => {
@@ -74,7 +83,7 @@ const AudioPlayer = ({album}) => {
                                 <div className={styles.nowPlayingArtist}>{artist}</div>
                             </div>
                             <div className={styles.nowPlayingProgress}>
-                                2:10 / 3:20
+                                2:10 / {trackDuration}
                             </div>
                         </div>
 
@@ -126,5 +135,3 @@ const AudioPlayer = ({album}) => {
 }
 
 export default AudioPlayer
-
-
