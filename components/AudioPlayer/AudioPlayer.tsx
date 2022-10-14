@@ -62,17 +62,16 @@ const AudioPlayer = ({album}) => {
                         
                         {/* Left panel - img & info */}
                         <div className={styles.nowPlayingInfo}>
-                            {/* <img src='/album_art.jpg' className={styles.nowPlayingImg} alt='album art' /> */}
                             <Image 
                                 className={styles.nowPlayingImg}
                                 layout='fixed'
                                 height={50}
                                 width={50} 
-                                src='/album_art.jpg'
+                                src={`http://192.168.1.26:9000/media/${album.path}/album_art.jpg`}
                                 alt='album art' />
                             <div className={styles.nowPlayingDetails}>
-                                <div className={styles.nowPlayingSongTitle}>The Chain (Remastered)</div>
-                                <div className={styles.nowPlayingArtist}>Fleetwood Mac</div>
+                                <div className={styles.nowPlayingSongTitle}>{track_list[currentTrack].title}</div>
+                                <div className={styles.nowPlayingArtist}>{artist}</div>
                             </div>
                             <div className={styles.nowPlayingProgress}>
                                 2:10 / 3:20
@@ -111,17 +110,17 @@ const AudioPlayer = ({album}) => {
                 <ProgressBar />
             </div>
             <div className={styles.mobileSpacer} />
+            
+            {/* This audio player is hidden. The code above is used for the UI */}
             <audio 
                 controls={false} 
                 src={audioSrc} 
                 autoPlay={true} 
-                ref={audioPlayerRef} 
+                ref={audioPlayerRef}
+                onPlay={() => setIsPlaying(true)} 
+                onPause={() => setIsPlaying(false)}
                 onEnded={getNextTrack}  
-                muted={isMuted}
-                >
-            
-            </audio>
-               
+                muted={isMuted} />
         </div>
     )
 }
