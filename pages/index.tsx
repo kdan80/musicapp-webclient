@@ -5,19 +5,32 @@ import axios from 'axios'
 import Header from 'components/Header/Header'
 import Dashboard from 'components/Dashboard/Dashboard'
 import styles from 'styles/Home.module.scss'
-import AudioPlayer from 'components/AudioPlayer/AudioPlayer'
+import MiniPlayer from 'components/AudioPlayer/MiniPlayer'
 import AlbumGrid from 'components/Album/AlbumGrid'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const Home: NextPage = () => {
 
-    const [albums, setAlbums] = React.useState([])
-    const [nowPlaying, setNowPlaying] = React.useState()
+    const [albums, setAlbums] = React.useState<Album[] | null>(null)
+    const [nowPlaying, setNowPlaying] = React.useState<any>(null)
     const [showMiniPlayer, setShowMiniPlayer] = React.useState<boolean>(false)
+    const [audioSrc, setAudioSrc] = React.useState<string | null>(null)
+    const [isPlaying, setIsPlaying] = React.useState<boolean>(false)
+    const [currentTime, setCurrentTime] = React.useState<number>(0)
+    const [trackDuration, setTrackDuration] = React.useState<number>(0)
+    const [skipToTimestamp, setSkipToTimestamp] = React.useState<number>(0)
+    const [volume, setVolume] = React.useState<number>(100)
+    const [isMuted, setIsMuted] = React.useState<boolean>(false)
+    const [currentTrack, setCurrentTrack] = React.useState<number>(0)
+    const audioPlayerRef = React.useRef<HTMLAudioElement | null>(null)
 
-    React.useEffect(() => {
-        if ( nowPlaying ) setShowMiniPlayer(true)
-    }, [nowPlaying])
+    const playNextTrack = () => {
+        let track = 0
+        if (nowPlaying && currentTrack < nowPlaying!.track_list.length) {
+            track = currentTrack + 1
+        }
+        return setCurrentTrack(track)
+    }
 
     React.useEffect(() => {
         (async () => {
@@ -31,6 +44,55 @@ const Home: NextPage = () => {
         })()
     }, [])
 
+    // Get source for current track
+    React.useEffect(() => {
+        console.log('currentTrack: ', currentTrack)
+        if (nowPlaying) {
+            const {artist, title, track_list} = nowPlaying
+            const src = `http://192.168.1.26:9000/media/${artist}/${title}/${track_list[currentTrack].filename}` 
+            console.log('src: ', src)
+            setAudioSrc(src)
+        }
+    }, [currentTrack, nowPlaying])
+
+    React.useEffect(() => {
+        if (nowPlaying) {
+            setShowMiniPlayer(true)
+            setIsPlaying(true)
+        }
+    }, [nowPlaying])
+
+    // Update current time
+    React.useEffect(() => {
+        if ( audioPlayerRef.current ) audioPlayerRef.current.currentTime = skipToTimestamp / 1000
+    }, [skipToTimestamp])
+
+    // Reset current track when a new album is loaded
+    React.useEffect(() => {
+        setCurrentTrack(0)
+    }, [nowPlaying])
+
+    // Get current song duration
+    React.useEffect(() => {
+        if (nowPlaying) {
+            setTrackDuration(nowPlaying.track_list[currentTrack].duration * 1000)
+        }
+    }, [currentTrack, nowPlaying])
+
+    // Play & pause functionality
+    React.useEffect(() => {
+        if (isPlaying) {
+            audioPlayerRef.current?.play()
+        } else {
+            audioPlayerRef.current?.pause()
+        }
+    }, [isPlaying])
+
+    // Volume control
+    React.useEffect(() => {
+        if (audioPlayerRef.current) audioPlayerRef.current.volume = volume / 100
+    }, [volume])
+
     return (
         <div className={styles.home}>
             <Head>
@@ -43,6 +105,7 @@ const Home: NextPage = () => {
             <Dashboard albums={albums} >
                 <AlbumGrid albums={albums} setNowPlaying={setNowPlaying} />
             </Dashboard>
+            
             <AnimatePresence>
                 {
                     showMiniPlayer && (
@@ -53,18 +116,43 @@ const Home: NextPage = () => {
                             animate={{ y: 0, transition: { duration: .35 } }}
                             exit={{ y: '100%', transition: { duration: .2 } }}
                             >
-                            <AudioPlayer 
+                            <MiniPlayer 
                                 album={nowPlaying}
+                                currentTime={currentTime}
+                                currentTrack={currentTrack}
+                                setCurrentTrack={setCurrentTrack}
+                                isPlaying={isPlaying}
+                                setIsPlaying={setIsPlaying}
+                                isMuted={isMuted}
+                                setIsMuted={setIsMuted}
+                                volume={volume}
+                                setVolume={setVolume}
+                                trackDuration={trackDuration}
+                                setSkipToTimestamp={setSkipToTimestamp}
                                 setShowMiniPlayer={setShowMiniPlayer} />
                         </motion.div>
                     )
                 }
             </AnimatePresence>
+
+                {/* This audio player is hidden. The code above is used for the UI */}
+                {
+                    nowPlaying && audioSrc && (
+                        <audio
+                            controls={false} 
+                            src={audioSrc} 
+                            autoPlay={true} 
+                            ref={audioPlayerRef}
+                            onTimeUpdate={(e: any) => setCurrentTime(e.target.currentTime * 1000)}
+                            onPlay={() => setIsPlaying(true)} 
+                            onPause={() => setIsPlaying(false)}
+                            onEnded={playNextTrack}  
+                            muted={isMuted} />
+                    )
+                }
         </div>
     )
 }
-
-
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     

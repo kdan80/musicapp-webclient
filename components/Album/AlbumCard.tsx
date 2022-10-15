@@ -1,39 +1,12 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import styles from './AlbumCard.module.scss'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 
-type Track = {
-    title: string
-    album: string
-    artist: string
-    disc_number: number
-    duration: number
-    featured_artists: [string]
-    filename: string
-    genres: [string]
-    nano_id: string
-    release_year: number
-    track_number: number
-}
-
 interface Props {
-    album: {
-        _id: string
-        artist: string
-        title: string
-        duration: number
-        featured_artists: [string]
-        release_year: number
-        comment: string
-        genres: [string]
-        number_of_discs: number
-        album_art: string
-        track_list: [Track]
-        path: string
-    }
-    setNowPlaying: () => void
+    album: Album
+    setNowPlaying: Dispatch<SetStateAction<Album>>
 }
 
 const AlbumCard: React.FC<Props> = ({album, setNowPlaying}) => {
@@ -45,6 +18,8 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying}) => {
         setTimeout(() => {
             setButtonClicked(false)
         }, 250)
+        // TODO: Sort needs to be moved to backend
+        album.track_list.sort((a: any, b: any) => a.track_number - b.track_number)
         setNowPlaying(album)
     }
 

@@ -16,7 +16,7 @@ const MediaButton: React.FC<Props> = ({children, className, clickHandler}) => {
         setTimeout(() => {
             setButtonClicked(false)
         }, 300)
-        if (clickHandler) clickHandler()
+        if (clickHandler) return clickHandler()
     }
     
     const mediaBtn = `${styles.mediaBtn} ${className}`
