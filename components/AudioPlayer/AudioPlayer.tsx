@@ -15,6 +15,7 @@ const AudioPlayer = ({album}) => {
     const [isPlaying, setIsPlaying] = React.useState<boolean>(true)
     const [currentTime, setCurrentTime] = React.useState<number>(0)
     const [trackDuration, setTrackDuration] = React.useState<number>(0)
+    const [skipToTimestamp, setSkipToTimestamp] = React.useState<number>(0)
     const [volume, setVolume] = React.useState<number>(100)
     const [isMuted, setIsMuted] = React.useState<boolean>(false)
     const [currentTrack, setCurrentTrack] = React.useState<number>(0)
@@ -41,10 +42,14 @@ const AudioPlayer = ({album}) => {
         return setCurrentTime(0)
     }
 
+    // Update current time
+    React.useEffect(() => {
+        if ( audioPlayerRef.current ) audioPlayerRef.current.currentTime = skipToTimestamp / 1000
+    }, [skipToTimestamp])
+
     // Reset current track when a new album is loaded
     React.useEffect(() => {
         setCurrentTrack(0)
-        console.log(album.track_list)
     }, [album])
 
     // Get current song duration
@@ -128,7 +133,9 @@ const AudioPlayer = ({album}) => {
                 </div>
                 <ProgressBar 
                     currentTime={currentTime} 
-                    trackDuration={trackDuration} />
+                    trackDuration={trackDuration}
+                    setSkipToTimestamp={setSkipToTimestamp}
+                    />
             </div>
             <div className={styles.mobileSpacer} />
             
@@ -138,7 +145,7 @@ const AudioPlayer = ({album}) => {
                 src={audioSrc} 
                 autoPlay={true} 
                 ref={audioPlayerRef}
-                onTimeUpdate={() => getCurrentTime()}
+                onTimeUpdate={(e: any) => setCurrentTime(e.target.currentTime * 1000)}
                 onPlay={() => setIsPlaying(true)} 
                 onPause={() => setIsPlaying(false)}
                 onEnded={getNextTrack}  

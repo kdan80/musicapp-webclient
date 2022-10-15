@@ -26,19 +26,19 @@ $bg-media-btn: #cecece;
     &Info,
     &Controls,
     &VolControls {
-        flex: 1;
         display: flex;
         align-items: center;
     }
 
+    &Controls {
+        width: 4rem;
+    }
+    
     &Info {
+        flex: 1;
         padding: .4rem 0;
         gap: .5rem;
         height: 100%;
-    }
-
-    &Img {
-        
     }
 
     &Progress {
@@ -76,17 +76,24 @@ $bg-media-btn: #cecece;
         gap: 1rem;
     }
 
+    &SongTitle,
+    &Artist {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
 }
 
 .nowPlaying {
 
-    &Img
-    //&Info,
-    //&Controls,
-    //&VolControls 
+    &Info,
+    &Controls,
+    &VolControls 
     {
-        border: 1px dashed red;
+        border: none;
     }
+    
 }
 
 .mobileSpacer {
@@ -103,7 +110,13 @@ $bg-media-btn: #cecece;
     }
 
     .nowPlaying {
-        padding: 0 .5rem;
+        padding: 0 1rem;
+
+        &Info,
+        &Controls,
+        &VolControls {
+            flex: 1;
+        }
 
         &Controls {
             gap: 1rem;

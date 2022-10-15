@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import styles from './ProgressBar.module.scss'
 
 interface Props {
     currentTime: number
     trackDuration: number
+    setSkipToTimestamp: Dispatch<SetStateAction<number>>
 }
 
-const ProgressBar: React.FC<Props> = ({currentTime, trackDuration}) => {
+const ProgressBar: React.FC<Props> = ({currentTime, trackDuration, setSkipToTimestamp}) => {
 
     const [width, setWidth] = React.useState<number>(0)
 
@@ -26,6 +27,7 @@ const ProgressBar: React.FC<Props> = ({currentTime, trackDuration}) => {
                 style={{ width: `calc(${width}% + 4px)`}} />
 
             <input 
+                onChange={(e: any) => setSkipToTimestamp(e.target.value)}
                 type='range'
                 min={0}
                 max={trackDuration}
