@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import styles from './AudioPlayer.module.scss'
 import ProgressBar from './ProgressBar'
 import PlayButton from './MediaButtons/PlayButton'
@@ -8,7 +8,12 @@ import Mute from './MediaButtons/Mute'
 import VolumeSlider from './MediaButtons/VolumeSlider'
 import moment from 'moment'
 
-const AudioPlayer = ({album}) => {
+interface Props {
+    album: any
+    setShowMiniPlayer: Dispatch<SetStateAction<boolean>>
+}
+
+const AudioPlayer: React.FC<Props> = ({album, setShowMiniPlayer}) => {
 
     const { title, artist, track_list } = album
     track_list.sort((a: any, b: any) => a.track_number - b.track_number)
@@ -37,9 +42,8 @@ const AudioPlayer = ({album}) => {
         return
     }
 
-    const getCurrentTime = () => {
-        if ( audioPlayerRef.current ) return setCurrentTime(audioPlayerRef.current.currentTime * 1000)
-        return setCurrentTime(0)
+    const handleClick = (e: any) => {
+        if ( e.target === e.currentTarget ) return setShowMiniPlayer(false)
     }
 
     // Update current time
@@ -82,10 +86,12 @@ const AudioPlayer = ({album}) => {
 
             <div className={styles.flexContainer}>
                 <div
-                    className={styles.nowPlaying}>
+                    className={styles.nowPlaying}
+                    onClick={handleClick}>
                         
                         {/* Left panel - img & info */}
-                        <div className={styles.nowPlayingInfo}>
+                        <div className={styles.nowPlayingInfo}
+                            onClick={handleClick}>
                             <Image 
                                 className={styles.nowPlayingImg}
                                 layout='fixed'
@@ -103,7 +109,8 @@ const AudioPlayer = ({album}) => {
                         </div>
 
                         {/* Center panel - play controls */}
-                        <div className={styles.nowPlayingControls}>
+                        <div className={styles.nowPlayingControls}
+                            onClick={handleClick}>
                             <SkipButton 
                                 currentTrack={currentTrack} 
                                 setCurrentTrack={setCurrentTrack} 
@@ -120,7 +127,8 @@ const AudioPlayer = ({album}) => {
                         </div>
 
                         {/* Right panel - volume controls */}
-                        <div className={styles.nowPlayingVolControls}>
+                        <div className={styles.nowPlayingVolControls}
+                            onClick={handleClick}>
                             <Mute 
                                 isMuted={isMuted}
                                 setIsMuted={setIsMuted} />

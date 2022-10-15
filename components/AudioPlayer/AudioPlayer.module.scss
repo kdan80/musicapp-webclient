@@ -1,13 +1,167 @@
+// @use 'styles/colors';
+// @use 'styles/vars';
+
+// $bg-media-btn: #cecece;
+
+// .player {
+//     width: 100%;
+// }
+
+// .flexContainer {
+//     height: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     background-color: colors.$bg-pane;
+// }
+
+// .nowPlaying {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     height: 100%;
+//     padding: 0 1.25rem;
+
+//     &Info,
+//     &Controls,
+//     &VolControls {
+//         display: flex;
+//         align-items: center;
+//     }
+
+//     &Controls {
+        
+//     }
+    
+//     &Info {
+        
+//         padding: .4rem 0;
+//         gap: .5rem;
+//         height: 100%;
+//     }
+
+//     &Progress {
+//         display: none;
+//     }
+
+//     &Details {
+//         font-size: .875rem;
+//     }
+
+//     &Artist {
+//         margin-top: .2rem;
+//         color: rgba(255, 255, 255, .4);
+//     }
+
+//     &SongTitle {
+//         color: #fff;
+//     }
+
+//     &Info,
+//     &Img,
+//     &Controls,
+//     &VolControls {
+//         height: 100%;
+//     }
+
+//     &Controls {
+//         justify-content: flex-end;
+//         gap: 1rem;
+//     }
+
+//     &VolControls {
+//         display: none;
+//         justify-content: flex-end;
+//         gap: 1rem;
+//     }
+
+//     &SongTitle,
+//     &Artist {
+//         white-space: nowrap;
+//         overflow: hidden;
+//         text-overflow: ellipsis;
+//     }
+
+// }
+
+// .nowPlaying {
+
+//     &Info,
+//     &Controls,
+//     &VolControls 
+//     {
+//         border: 1px solid red;
+//     }
+    
+// }
+
+// .mobileSpacer {
+//     width: 100%;
+//     height: 1.5rem;
+//     background-color: rgba(0,0,0,.7);
+//     backdrop-filter: blur(8px);
+// }
+
+
+// @media screen and (min-width: 700px) {
+//     .flexContainer {
+//         flex-direction: column-reverse;
+//     }
+
+//     .nowPlaying {
+//         padding: 0 1rem;
+
+//         &Info,
+//         &Controls,
+//         &VolControls {
+            
+//         }
+
+//         &Controls {
+//             gap: 1rem;
+//             justify-content: center;
+//         }
+
+//         &VolControls {
+//             display: flex;
+//         }
+
+        
+//     }
+
+//     .mobileSpacer {
+//         display: none;
+//     }
+// }
+
+// @media screen and (min-width: 1024px) {
+//     .nowPlayingProgress {
+//         display: block;
+//         margin-left: 2rem;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @use 'styles/colors';
 @use 'styles/vars';
 
 $bg-media-btn: #cecece;
 
 .player {
-    position: fixed;
     width: 100%;
-    bottom: 0;
-    left: 0;
 }
 
 .flexContainer {
@@ -91,7 +245,7 @@ $bg-media-btn: #cecece;
     &Controls,
     &VolControls 
     {
-        border: none;
+        border: 1px solid red;
     }
     
 }
@@ -141,3 +295,4 @@ $bg-media-btn: #cecece;
         margin-left: 2rem;
     }
 }
+

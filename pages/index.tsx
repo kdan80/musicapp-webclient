@@ -7,11 +7,17 @@ import Dashboard from 'components/Dashboard/Dashboard'
 import styles from 'styles/Home.module.scss'
 import AudioPlayer from 'components/AudioPlayer/AudioPlayer'
 import AlbumGrid from 'components/Album/AlbumGrid'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const Home: NextPage = () => {
 
     const [albums, setAlbums] = React.useState([])
     const [nowPlaying, setNowPlaying] = React.useState()
+    const [showMiniPlayer, setShowMiniPlayer] = React.useState<boolean>(false)
+
+    React.useEffect(() => {
+        if ( nowPlaying ) setShowMiniPlayer(true)
+    }, [nowPlaying])
 
     React.useEffect(() => {
         (async () => {
@@ -37,11 +43,23 @@ const Home: NextPage = () => {
             <Dashboard albums={albums} >
                 <AlbumGrid albums={albums} setNowPlaying={setNowPlaying} />
             </Dashboard>
-            {
-                nowPlaying && (
-                    <AudioPlayer album={nowPlaying} />
-                )
-            }
+            <AnimatePresence>
+                {
+                    showMiniPlayer && (
+                        <motion.div
+                            className={styles.audioWrapper}
+                            key='audioPlayer'
+                            initial={{ y: '100%' }}
+                            animate={{ y: 0, transition: { duration: .35 } }}
+                            exit={{ y: '100%', transition: { duration: .2 } }}
+                            >
+                            <AudioPlayer 
+                                album={nowPlaying}
+                                setShowMiniPlayer={setShowMiniPlayer} />
+                        </motion.div>
+                    )
+                }
+            </AnimatePresence>
         </div>
     )
 }
