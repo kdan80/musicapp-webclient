@@ -1,0 +1,98 @@
+@use 'styles/colors';
+
+$mob-width: 82vw;
+
+.bottom,
+.imgWrapper,
+.header {
+    border: 1px solid transparent;
+}
+
+.audioPlayer {
+    background-color: #080808;
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header {
+    min-height: 3.2rem;
+    width: $mob-width;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headerButton {
+    height: 100%;
+    padding: .5rem 0;
+    color: #fff;
+    font-size: 1.25rem;
+}
+
+.imgWrapper {
+    position: relative;
+    width: $mob-width;
+    height: $mob-width;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.bottom {
+    width: $mob-width;
+    display: flex;
+    flex-direction: column;
+}
+
+.info,
+.progress {
+    font-size: .9rem;
+    margin-bottom: 1.5rem;
+}
+
+.info {
+    line-height: 1.25;
+    color: #bbb;
+
+    &SongTitle {
+        font-size: 1rem;
+        color: #fff;
+        margin-bottom: .2rem;
+        font-weight: 600;
+    }
+
+    &AlbumTitle,
+    &Artist,
+    &SongTitle {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.progress {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 2.25rem;
+}
+
+.trackListWrapper {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 4;
+}

@@ -6,6 +6,7 @@ import Header from 'components/Header/Header'
 import Dashboard from 'components/Dashboard/Dashboard'
 import styles from 'styles/Home.module.scss'
 import MiniPlayer from 'components/AudioPlayer/MiniPlayer'
+import AudioPlayer from 'components/AudioPlayer/AudioPlayer'
 import AlbumGrid from 'components/Album/AlbumGrid'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -14,6 +15,7 @@ const Home: NextPage = () => {
     const [albums, setAlbums] = React.useState<Album[] | null>(null)
     const [nowPlaying, setNowPlaying] = React.useState<any>(null)
     const [showMiniPlayer, setShowMiniPlayer] = React.useState<boolean>(false)
+    const [showAudioPlayer, setShowAudioPlayer] = React.useState<boolean>(false)
     const [audioSrc, setAudioSrc] = React.useState<string | null>(null)
     const [isPlaying, setIsPlaying] = React.useState<boolean>(false)
     const [currentTime, setCurrentTime] = React.useState<number>(0)
@@ -54,6 +56,13 @@ const Home: NextPage = () => {
             setAudioSrc(src)
         }
     }, [currentTrack, nowPlaying])
+
+    // Disable scrolling when AudioPlayer is displayed
+    React.useEffect(() => {
+        showAudioPlayer
+            ? document.body.classList.add('disable-scroll')
+            : document.body.classList.remove('disable-scroll')
+    }, [showAudioPlayer])
 
     React.useEffect(() => {
         if (nowPlaying) {
@@ -110,7 +119,7 @@ const Home: NextPage = () => {
                 {
                     showMiniPlayer && (
                         <motion.div
-                            className={styles.audioWrapper}
+                            className={styles.miniPlayerWrapper}
                             key='audioPlayer'
                             initial={{ y: '100%' }}
                             animate={{ y: 0, transition: { duration: .35 } }}
@@ -129,7 +138,37 @@ const Home: NextPage = () => {
                                 setVolume={setVolume}
                                 trackDuration={trackDuration}
                                 setSkipToTimestamp={setSkipToTimestamp}
-                                setShowMiniPlayer={setShowMiniPlayer} />
+                                setShowMiniPlayer={setShowMiniPlayer}
+                                setShowAudioPlayer={setShowAudioPlayer} />
+                        </motion.div>
+                    )
+                }
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {
+                    !showMiniPlayer && showAudioPlayer && (
+                        <motion.div
+                            className={styles.audioPlayerWrapper}
+                            key='audioPlayer'
+                            initial={{ y: '100%' }}
+                            animate={{ y: 0, transition: { duration: .35 } }}
+                            exit={{ y: '100%', transition: { duration: .2 } }}>
+                                <AudioPlayer
+                                    album={nowPlaying}
+                                    currentTime={currentTime}
+                                    currentTrack={currentTrack}
+                                    setCurrentTrack={setCurrentTrack}
+                                    isPlaying={isPlaying}
+                                    setIsPlaying={setIsPlaying}
+                                    isMuted={isMuted}
+                                    setIsMuted={setIsMuted}
+                                    volume={volume}
+                                    setVolume={setVolume}
+                                    trackDuration={trackDuration}
+                                    setSkipToTimestamp={setSkipToTimestamp}
+                                    setShowMiniPlayer={setShowMiniPlayer}
+                                    setShowAudioPlayer={setShowAudioPlayer} />
                         </motion.div>
                     )
                 }

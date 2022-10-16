@@ -1,0 +1,82 @@
+@use 'styles/colors';
+
+$mob-width: 82vw;
+
+.trackListContainer {
+    background-color: rgba(8, 8, 8, .88);
+    backdrop-filter: blur(8px);
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 3.2rem;
+}
+
+.trackList {
+    width: $mob-width;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &Item {
+        display: flex;
+        height: 3.5rem;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1px solid #444;
+        color: #eee;
+    }
+}
+
+.currentTrack {
+    color: colors.$txt-hero-hover;
+}
+
+.trackDuration {
+    width: 2rem;
+}
+
+.trackNumber {
+    width: 1rem;
+}
+
+.trackTitle {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.imgWrapper {
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.header {
+    background-color: #080808;
+    min-height: 3.2rem;
+    width: $mob-width;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    &Title {
+        flex: 1;
+        padding: 0 1.5rem;
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.headerButton {
+    height: 100%;
+    padding: .5rem 0;
+    color: #fff;
+    font-size: 1.25rem;
+}

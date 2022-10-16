@@ -22,6 +22,7 @@ interface Props {
     setVolume: Dispatch<SetStateAction<number>>
     setSkipToTimestamp: Dispatch<SetStateAction<number>>
     setShowMiniPlayer: Dispatch<SetStateAction<boolean>>
+    setShowAudioPlayer: Dispatch<SetStateAction<boolean>>
 }
 
 const MiniPlayer: React.FC<Props> = ({
@@ -33,14 +34,18 @@ const MiniPlayer: React.FC<Props> = ({
         isMuted, setIsMuted,
         volume, setVolume,
         setSkipToTimestamp,
-        setShowMiniPlayer
+        setShowMiniPlayer,
+        setShowAudioPlayer
     }) => {
 
     const { title, artist, track_list } = album
     
     
     const handleClick = (e: any) => {
-        if ( e.target === e.currentTarget ) return setShowMiniPlayer(false)
+        if ( e.target === e.currentTarget ) {
+            setShowAudioPlayer(true)
+            return setShowMiniPlayer(false)
+        }
     }
 
     return (
@@ -77,6 +82,7 @@ const MiniPlayer: React.FC<Props> = ({
                                 currentTrack={currentTrack} 
                                 setCurrentTrack={setCurrentTrack} 
                                 numberOfTracks={track_list.length} 
+                                hiddenBtn
                                 skipBackward={true} />
                             <PlayButton 
                                 isPlaying={isPlaying} 
@@ -85,6 +91,7 @@ const MiniPlayer: React.FC<Props> = ({
                                 currentTrack={currentTrack} 
                                 setCurrentTrack={setCurrentTrack} 
                                 numberOfTracks={track_list.length} 
+                                hiddenBtn
                                 skipBackward={false} />
                         </div>
 

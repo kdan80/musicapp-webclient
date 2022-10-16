@@ -9,9 +9,10 @@ interface Props {
     setCurrentTrack: Dispatch<SetStateAction<number>>
     numberOfTracks: number
     skipBackward: boolean
+    hiddenBtn?: true
 }
 
-const SkipButton: React.FC<Props> = ({currentTrack, setCurrentTrack, numberOfTracks, skipBackward}) => {
+const SkipButton: React.FC<Props> = ({currentTrack, setCurrentTrack, numberOfTracks, skipBackward, hiddenBtn}) => {
     
     const skipTrackForward = () => {
         if (currentTrack < (numberOfTracks - 1)) return setCurrentTrack(prev => prev + 1)
@@ -26,7 +27,7 @@ const SkipButton: React.FC<Props> = ({currentTrack, setCurrentTrack, numberOfTra
     return (
         <MediaButton 
             clickHandler={skipBackward ? skipTrackBackward : skipTrackForward }
-            className={styles.hiddenBtn}
+            className={hiddenBtn ? styles.hiddenBtn : undefined }
             >
             <FontAwesomeIcon 
                 className={styles.mediaBtnIcon}
