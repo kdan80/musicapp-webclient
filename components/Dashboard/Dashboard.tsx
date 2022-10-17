@@ -1,8 +1,11 @@
 import React from 'react'
 import styles from './Dashboard.module.scss'
-import AlbumGrid from 'components/Album/AlbumGrid'
 
-const Dashboard = ({albums, children}) => {
+interface Props {
+    children: React.ReactNode
+}
+
+const Dashboard: React.FC<Props> = ({children}) => {
     
     return (
         <div className={styles.dashboard}>

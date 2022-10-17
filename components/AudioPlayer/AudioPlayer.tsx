@@ -4,6 +4,8 @@ import Image from 'next/image'
 import PlayButton from './MediaButtons/PlayButton'
 import SkipButton from './MediaButtons/SkipButton'
 import ProgressBar from './ProgressBar'
+import Mute from './MediaButtons/Mute'
+import VolumeSlider from './MediaButtons/VolumeSlider'
 import moment from 'moment'
 import TrackList from 'components/TrackList/TrackList'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -51,6 +53,7 @@ const AudioPlayer: React.FC<Props> = ({
     return (
         
         <div className={styles.audioPlayer}>
+
             <div    
                 className={styles.header}
                 >
@@ -61,21 +64,83 @@ const AudioPlayer: React.FC<Props> = ({
                             icon={faArrowLeft} />
                     </button>
                     <button 
-                        className={styles.headerButton}>
+                        className={`${styles.headerButton} ${styles.trackListButton}`}>
                         <FontAwesomeIcon 
                             onClick={() => setShowTrackList(true)}
                             icon={faEllipsisV} />
                     </button>
             </div>
 
-            <div className={styles.imgWrapper}>
-                <Image
-                    layout={'fill'}
-                    objectFit={'cover'}
-                    src={`http://192.168.1.26:9000/media/${album.path}/album_art.jpg`}
-                    alt='album art' />
-            </div>
+                <div className={styles.middle}>
+                    <div className={styles.imgContainer}>
+                        <div className={styles.imgWrapper}>
+                            <Image
+                                layout={'fill'}
+                                objectFit={'cover'}
+                                src={`http://192.168.1.26:9000/media/${album.path}/album_art.jpg`}
+                                alt='album art' />
+                        </div>
+                    </div>
 
+
+                    <div className={styles.bottom}>
+                        <div className={styles.info}>
+                            <div className={styles.infoSongTitle}>{track_list[currentTrack].title}</div>
+                            <div className={styles.infoAlbumTitle}>{title}</div>
+                            <div className={styles.infoArtist}>{artist}</div>
+                        </div>
+
+                        <div className={styles.controls}>
+                            <div className={styles.progress}>
+                                <div>{moment(currentTime).format('m:ss')}</div>
+                                <ProgressBar
+                                    currentTime={currentTime}
+                                    trackDuration={trackDuration}
+                                    setSkipToTimestamp={setSkipToTimestamp}/>
+                                <div>{moment(trackDuration).format('m:ss')}</div>
+                            </div>
+                            <div className={styles.buttons}>
+                                <div className={styles.buttonsTrack}>
+                                    <SkipButton 
+                                        skipBackward={true}
+                                        currentTrack={currentTrack}
+                                        setCurrentTrack={setCurrentTrack}
+                                        numberOfTracks={track_list.length} />
+                                    <PlayButton 
+                                            isPlaying={isPlaying} 
+                                            setIsPlaying={setIsPlaying} />
+                                    <SkipButton 
+                                        skipBackward={false}
+                                        currentTrack={currentTrack}
+                                        setCurrentTrack={setCurrentTrack}
+                                        numberOfTracks={track_list.length} />
+                                </div>
+                                <div className={styles.buttonsVol}>
+                                    <Mute
+                                        isMuted={isMuted}
+                                        setIsMuted={setIsMuted}/>
+                                    <VolumeSlider
+                                        isMuted={isMuted}
+                                        setIsMuted={setIsMuted}
+                                        volume={volume}
+                                        setVolume={setVolume} />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div className={styles.trackList}>
+                    <TrackList
+                                album={album}
+                                setShowTrackList={setShowTrackList}
+                                setCurrentTrack={setCurrentTrack}
+                                currentTrack={currentTrack}/>
+                </div>
+
+            {/* Pop up variant of TrackList for mobile UI */}
             {
                 showTrackList && (
                     <div className={styles.trackListWrapper}>
@@ -83,47 +148,10 @@ const AudioPlayer: React.FC<Props> = ({
                             album={album}
                             setShowTrackList={setShowTrackList}
                             setCurrentTrack={setCurrentTrack}
-                            currentTrack={currentTrack}
-                            />
+                            currentTrack={currentTrack}/>
                     </div>
                 )
             }
-
-            <div className={styles.bottom}>
-                <div className={styles.info}>
-                    <div className={styles.infoSongTitle}>{track_list[currentTrack].title}</div>
-                    <div className={styles.infoAlbumTitle}>{title}</div>
-                    <div className={styles.infoArtist}>{artist}</div>
-                </div>
-
-                <div className={styles.controls}>
-                    <div className={styles.progress}>
-                        <div>{moment(currentTime).format('m:ss')}</div>
-                        <ProgressBar
-                            currentTime={currentTime}
-                            trackDuration={trackDuration}
-                            setSkipToTimestamp={setSkipToTimestamp}/>
-                        <div>{moment(trackDuration).format('m:ss')}</div>
-                    </div>
-                    <div className={styles.buttons}>
-                        <SkipButton 
-                            skipBackward={true}
-                            currentTrack={currentTrack}
-                            setCurrentTrack={setCurrentTrack}
-                            numberOfTracks={12} />
-                        <PlayButton 
-                                isPlaying={isPlaying} 
-                                setIsPlaying={setIsPlaying} />
-                        <SkipButton 
-                            skipBackward={false}
-                            currentTrack={currentTrack}
-                            setCurrentTrack={setCurrentTrack}
-                            numberOfTracks={12} />
-                    </div>
-
-                </div>
-
-            </div>
         </div>
     )
 }

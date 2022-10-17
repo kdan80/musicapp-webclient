@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import styles from './AlbumGrid.module.scss'
 import AlbumCard from './AlbumCard'
 
-const AlbumGrid = ({albums, setNowPlaying}) => {
+interface Props {
+    albums: Album[]
+    setNowPlaying: Dispatch<SetStateAction<Album>>
+}
+
+const AlbumGrid: React.FC<Props> = ({albums, setNowPlaying}) => {
     
     return (
         <div className={styles.grid}>

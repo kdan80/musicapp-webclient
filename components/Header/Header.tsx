@@ -2,7 +2,6 @@ import React from 'react'
 import styles from './header.module.scss'
 import { AuthContext } from 'components/auth/AuthContext'
 import { useRouter } from 'next/router'
-import OptionsList from './OptionsList'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LogoutModal from './LogoutModal'
@@ -23,10 +22,7 @@ const Header = () => {
     return (
         <div className={styles.header}>
             <div className={styles.topRow}>
-                <div>Logo</div>
-                <div className={styles.topOptions}>
-                    <OptionsList />
-                </div>
+                <div className={styles.logo}>MusicApp</div>
                 <button 
                     className={styles.userBtn}
                     title={user || undefined}
@@ -42,16 +38,11 @@ const Header = () => {
                         </div>
                 </button>
             </div>
-            <div className={styles.bottomRow}>
-                <OptionsList />
-            </div>
-            
-                    <LogoutModal 
-                        modalIsOpen={modalIsOpen} 
-                        setModalIsOpen={setModalIsOpen} 
-                        logout={logout} 
-                    />
-            
+            <LogoutModal 
+                modalIsOpen={modalIsOpen} 
+                setModalIsOpen={setModalIsOpen} 
+                logout={logout} 
+            />
         </div>
     )
 }

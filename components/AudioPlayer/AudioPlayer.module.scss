@@ -1,21 +1,22 @@
 @use 'styles/colors';
 
 $mob-width: 82vw;
+$dt-width: 90vw;
 
 .bottom,
 .imgWrapper,
-.header {
+.header,
+.audioPlayer {
     border: 1px solid transparent;
 }
 
 .audioPlayer {
     background-color: #080808;
-    width: 100vw;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 }
 
 .header {
@@ -26,11 +27,29 @@ $mob-width: 82vw;
     justify-content: space-between;
 }
 
+.middle {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.trackList {
+    display: none;
+}
+
 .headerButton {
     height: 100%;
     padding: .5rem 0;
     color: #fff;
     font-size: 1.25rem;
+}
+
+.imgContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .imgWrapper {
@@ -82,7 +101,6 @@ $mob-width: 82vw;
 .buttons {
     display: flex;
     justify-content: center;
-    gap: 2rem;
     align-items: center;
     margin-bottom: 2.25rem;
 }
@@ -95,4 +113,77 @@ $mob-width: 82vw;
     top: 0;
     right: 0;
     z-index: 4;
+}
+
+.buttonsVol {
+    display: none;
+}
+
+.buttonsTrack {
+    display: flex;
+    gap: 2.5rem;
+}
+
+@media screen and (min-width: 700px) {
+
+    .audioPlayer {
+        gap: 4rem;
+    }
+
+    .header,
+    .middle,
+    .imgWrapper {
+        border: 1px solid transparent;
+    }
+
+    .header,
+    .middle {
+        width: $dt-width;
+    }
+
+    .middle {
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        flex: 0;
+    }
+
+    .trackList {
+        display: block;
+    }
+
+    .trackListButton {
+        display: none;
+    }
+
+    .imgWrapper {
+        border-radius: 4px;
+        max-width: 15rem;
+        max-height: 15rem;
+    }
+
+    .buttons {
+        justify-content: space-between;
+
+        &Track {
+            gap: 1rem;
+        }
+
+        &Vol {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+    }
+}
+
+@media screen and (min-width: 900px) {
+
+    .buttonsTrack {
+        gap: 2.5rem;
+    }
+
+    .buttonsVol {
+        gap: 2.5rem;
+    }
 }
