@@ -38,7 +38,7 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying}) => {
                     layout='responsive'
                     height='100%'
                     width='100%' 
-                    src={`http://192.168.1.26:9000/media/${album.path}/album_art.jpg`} 
+                    src={`http://192.168.1.26:9000/images/${album._id}.jpg`} 
                     alt='album art' />
                 <div className={styles.overlay} />
                 <button 
