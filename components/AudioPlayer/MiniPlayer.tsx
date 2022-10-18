@@ -9,7 +9,7 @@ import VolumeSlider from './MediaButtons/VolumeSlider'
 import moment from 'moment'
 
 interface Props {
-    album: Album
+    nowPlaying: NowPlaying | null
     trackDuration: number
     currentTrack: number
     setCurrentTrack: Dispatch<SetStateAction<number>>
@@ -26,7 +26,7 @@ interface Props {
 }
 
 const MiniPlayer: React.FC<Props> = ({
-        album,
+        nowPlaying,
         trackDuration,
         currentTrack, setCurrentTrack,
         currentTime,
@@ -38,7 +38,7 @@ const MiniPlayer: React.FC<Props> = ({
         setShowAudioPlayer
     }) => {
 
-    const { title, artist, track_list } = album
+    const { title, artist, track_list } = nowPlaying!.album
     
     
     const handleClick = (e: any) => {
@@ -64,7 +64,7 @@ const MiniPlayer: React.FC<Props> = ({
                                 layout='fixed'
                                 height={50}
                                 width={50} 
-                                src={`http://192.168.1.26:9000/media/${album.path}/album_art.jpg`}
+                                src={`http://192.168.1.26:9000/media/${nowPlaying!.album.path}/album_art.jpg`}
                                 alt='album art' />
                             <div className={styles.nowPlayingDetails}>
                                 <div className={styles.nowPlayingSongTitle}>{track_list[currentTrack].title}</div>

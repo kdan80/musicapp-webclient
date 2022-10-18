@@ -26,3 +26,8 @@ type Album = {
     track_list: [Track]
     path: string
 }
+
+type NowPlaying = {
+    album: Album
+    presignedUrls: string[]
+}

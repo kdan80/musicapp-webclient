@@ -4,7 +4,7 @@ import AlbumCard from './AlbumCard'
 
 interface Props {
     albums: Album[]
-    setNowPlaying: Dispatch<SetStateAction<Album>>
+    setNowPlaying: Dispatch<SetStateAction<NowPlaying | null>>
 }
 
 const AlbumGrid: React.FC<Props> = ({albums, setNowPlaying}) => {

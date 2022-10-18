@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
-    album: Album
+    nowPlaying: NowPlaying | null
     trackDuration: number
     currentTrack: number
     setCurrentTrack: Dispatch<SetStateAction<number>>
@@ -29,7 +29,7 @@ interface Props {
 }
 
 const AudioPlayer: React.FC<Props> = ({
-        album,
+        nowPlaying,
         trackDuration,
         currentTrack, setCurrentTrack,
         currentTime,
@@ -43,7 +43,7 @@ const AudioPlayer: React.FC<Props> = ({
 
     const [showTrackList, setShowTrackList] = React.useState<boolean>(false)
 
-    const {title, artist, track_list} = album
+    const {title, artist, track_list} = nowPlaying!.album
 
     const minimizeAudioPlayer = () => {
         setShowAudioPlayer(false)
@@ -77,7 +77,7 @@ const AudioPlayer: React.FC<Props> = ({
                             <Image
                                 layout={'fill'}
                                 objectFit={'cover'}
-                                src={`http://192.168.1.26:9000/media/${album.path}/album_art.jpg`}
+                                src={`http://192.168.1.26:9000/media/${nowPlaying!.album.path}/album_art.jpg`}
                                 alt='album art' />
                         </div>
                     </div>
@@ -134,7 +134,7 @@ const AudioPlayer: React.FC<Props> = ({
 
                 <div className={styles.trackList}>
                     <TrackList
-                                album={album}
+                                album={nowPlaying!.album}
                                 setShowTrackList={setShowTrackList}
                                 setCurrentTrack={setCurrentTrack}
                                 currentTrack={currentTrack}/>
@@ -145,7 +145,7 @@ const AudioPlayer: React.FC<Props> = ({
                 showTrackList && (
                     <div className={styles.trackListWrapper}>
                         <TrackList
-                            album={album}
+                            album={nowPlaying!.album}
                             setShowTrackList={setShowTrackList}
                             setCurrentTrack={setCurrentTrack}
                             currentTrack={currentTrack}/>

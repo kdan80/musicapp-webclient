@@ -3,24 +3,29 @@ import styles from './AlbumCard.module.scss'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
 
 interface Props {
     album: Album
-    setNowPlaying: Dispatch<SetStateAction<Album>>
+    setNowPlaying: Dispatch<SetStateAction<NowPlaying | null>>
 }
 
 const AlbumCard: React.FC<Props> = ({album, setNowPlaying}) => {
 
     const [buttonClicked, setButtonClicked] = React.useState<boolean>(false)
 
-    const handleClick = () => {
+    const handleClick = async() => {
         setButtonClicked(true)
         setTimeout(() => {
             setButtonClicked(false)
         }, 250)
         // TODO: Sort needs to be moved to backend
         album.track_list.sort((a: any, b: any) => a.track_number - b.track_number)
-        setNowPlaying(album)
+        const { data } = await axios.get(`http://192.168.1.21:4000/stream/${album._id}`)
+        setNowPlaying({
+            album: album,
+            presignedUrls: data.presignedUrls
+        })
     }
 
     return (

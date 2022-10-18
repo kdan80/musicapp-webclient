@@ -13,7 +13,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 const Home: NextPage = () => {
 
     const [albums, setAlbums] = React.useState<Album[] | null>(null)
-    const [nowPlaying, setNowPlaying] = React.useState<any>(null)
+    const [nowPlaying, setNowPlaying] = React.useState<NowPlaying | null>(null)
     const [showMiniPlayer, setShowMiniPlayer] = React.useState<boolean>(false)
     const [showAudioPlayer, setShowAudioPlayer] = React.useState<boolean>(false)
     const [audioSrc, setAudioSrc] = React.useState<string | null>(null)
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
 
     const playNextTrack = () => {
         let track = 0
-        if (nowPlaying && currentTrack < nowPlaying!.track_list.length) {
+        if (nowPlaying && currentTrack < nowPlaying.album.track_list.length) {
             track = currentTrack + 1
         }
         return setCurrentTrack(track)
@@ -49,9 +49,10 @@ const Home: NextPage = () => {
     // Get source for current track
     React.useEffect(() => {
         console.log('currentTrack: ', currentTrack)
-        if (nowPlaying) {
-            const {artist, title, track_list} = nowPlaying
-            const src = `http://192.168.1.26:9000/media/${artist}/${title}/${track_list[currentTrack].filename}` 
+        if (nowPlaying?.presignedUrls) {
+            //const {artist, title, track_list} = nowPlaying.album
+            const src = nowPlaying.presignedUrls[currentTrack]
+            //const src = `http://192.168.1.26:9000/media/${artist}/${title}/${track_list[currentTrack].filename}` 
             console.log('src: ', src)
             setAudioSrc(src)
         }
@@ -84,7 +85,7 @@ const Home: NextPage = () => {
     // Get current song duration
     React.useEffect(() => {
         if (nowPlaying) {
-            setTrackDuration(nowPlaying.track_list[currentTrack].duration * 1000)
+            setTrackDuration(nowPlaying.album.track_list[currentTrack].duration * 1000)
         }
     }, [currentTrack, nowPlaying])
 
@@ -126,7 +127,7 @@ const Home: NextPage = () => {
                             exit={{ y: '100%', transition: { duration: .2 } }}
                             >
                             <MiniPlayer 
-                                album={nowPlaying}
+                                nowPlaying={nowPlaying}
                                 currentTime={currentTime}
                                 currentTrack={currentTrack}
                                 setCurrentTrack={setCurrentTrack}
@@ -155,7 +156,7 @@ const Home: NextPage = () => {
                             animate={{ y: 0, transition: { duration: .35 } }}
                             exit={{ y: '100%', transition: { duration: .2 } }}>
                                 <AudioPlayer
-                                    album={nowPlaying}
+                                    nowPlaying={nowPlaying}
                                     currentTime={currentTime}
                                     currentTrack={currentTrack}
                                     setCurrentTrack={setCurrentTrack}
