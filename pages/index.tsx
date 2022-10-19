@@ -1,5 +1,4 @@
 import type { NextPage, GetServerSideProps } from 'next'
-import Head from 'next/head'
 import React from 'react'
 import axios from 'axios'
 import Header from 'components/Header/Header'
@@ -9,6 +8,8 @@ import MiniPlayer from 'components/AudioPlayer/MiniPlayer'
 import AudioPlayer from 'components/AudioPlayer/AudioPlayer'
 import AlbumGrid from 'components/Album/AlbumGrid'
 import { motion, AnimatePresence } from 'framer-motion'
+import { AuthContext } from 'components/auth/AuthContext'
+import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
 
@@ -25,6 +26,8 @@ const Home: NextPage = () => {
     const [isMuted, setIsMuted] = React.useState<boolean>(false)
     const [currentTrack, setCurrentTrack] = React.useState<number>(0)
     const audioPlayerRef = React.useRef<HTMLAudioElement | null>(null)
+    const { logoutUser } = React.useContext(AuthContext)
+    const router = useRouter()
 
     const playNextTrack = () => {
         let track = 0
@@ -36,24 +39,27 @@ const Home: NextPage = () => {
 
     React.useEffect(() => {
         (async () => {
-              
-            const response = await axios({
-                method: 'get',
-                url: 'http://192.168.1.21:4000/album?page=1&limit=100',
-                withCredentials: true
-            })
-            setAlbums(response.data.results)
+           
+            try {
+                const response = await axios({
+                    method: 'get',
+                    url: 'http://192.168.1.21:4000/album?page=1&limit=100',
+                    withCredentials: true
+                })
+                setAlbums(response.data.results)
+
+            } catch (err) {
+                logoutUser()
+                router.push('/')
+            }
+
         })()
-    }, [])
+    }, [logoutUser, router])
 
     // Get source for current track
     React.useEffect(() => {
-        console.log('currentTrack: ', currentTrack)
         if (nowPlaying?.presignedUrls) {
-            //const {artist, title, track_list} = nowPlaying.album
             const src = nowPlaying.presignedUrls[currentTrack]
-            //const src = `http://192.168.1.26:9000/media/${artist}/${title}/${track_list[currentTrack].filename}` 
-            console.log('src: ', src)
             setAudioSrc(src)
         }
     }, [currentTrack, nowPlaying])

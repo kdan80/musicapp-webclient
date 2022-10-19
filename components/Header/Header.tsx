@@ -15,7 +15,6 @@ const Header = () => {
     const logout = async() => {
         setModalIsOpen(false)
         const response = await logoutUser()
-        console.log('logged out')
         return router.push('/login')
     }
     

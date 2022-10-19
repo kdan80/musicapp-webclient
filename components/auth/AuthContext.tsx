@@ -53,19 +53,24 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
     const logoutUser = async() => {
 
-        const response = await axios({
-            method: 'post',
-            url: 'http://192.168.1.21:4000/logout',
-            withCredentials: true,
-        })
-    
-        if (response.status !== 200) return response
+        try {
+            const response = await axios({
+                method: 'post',
+                url: 'http://192.168.1.21:4000/logout',
+                withCredentials: true,
+            })
+        
+            if (response.status !== 200) return response
 
-        destroyCookie(null, 'user')
-
-        setUser(null)
-        setIsLoggedIn(false)
-        return response
+            destroyCookie(null, 'user')
+            setUser(null)
+            setIsLoggedIn(false)
+            return response
+        } catch (err) {
+            destroyCookie(null, 'user')
+            setUser(null)
+            return setIsLoggedIn(false)
+        }
     }
 
     const contextData = {

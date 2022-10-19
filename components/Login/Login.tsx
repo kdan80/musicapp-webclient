@@ -23,18 +23,11 @@ const Login = () => {
         if (!username || !password) return
 
         try {
-
             const response = await loginUser(username, password)
-            //if (response.status !== 200) return
-
             return router.push('/')
-
         } catch (err: any) {
-            console.log('error: ', err.response.data.message)
             setErrorMessage(err.response.data.message)
         }
-
-        
     }   
 
     const enableGuestSignIn = () => {
@@ -69,9 +62,6 @@ const Login = () => {
             return;
         }
     });
-
-    console.log('componendDidMount: ', componentDidMount.current)
-    console.log('isGuest: ', isGuest)
 
     return (
         <div className={styles.login}>
