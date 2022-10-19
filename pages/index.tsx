@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             try {
                 const response = await axios({
                     method: 'get',
-                    url: 'http://192.168.1.21:4000/album?page=1&limit=144',
+                    url: `${process.env.API_ALBUM_ENDPOINT}?page=1&limit=143`,
                     withCredentials: true
                 })
                 setAlbums(response.data.results)
@@ -137,7 +137,7 @@ const Home: NextPage = () => {
                     showMiniPlayer && (
                         <motion.div
                             className={styles.miniPlayerWrapper}
-                            key='audioPlayer'
+                            key='miniPlayer'
                             initial={{ y: '100%' }}
                             animate={{ y: 0, transition: { duration: .35 } }}
                             exit={{ y: '100%', transition: { duration: .2 } }}

@@ -31,7 +31,7 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
         try {
             const response = await axios({
                 method: 'get',
-                url: `http://192.168.1.21:4000/stream/${album._id}`,
+                url: `${process.env.PRESIGNED_URL_ENDPOINT}/${album._id}`,
                 withCredentials: true
             })
 
@@ -57,8 +57,9 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
                     layout='responsive'
                     height='100%'
                     width='100%' 
-                    src={`http://192.168.1.26:9000/images/${album._id}.jpg`} 
-                    alt='album art' />
+                    src={`${process.env.MINIO_IMAGES_BUCKET}/${album._id}.jpg`} 
+                    alt='album art'
+                    loading='lazy' />
                 <div className={styles.overlay} />
                 <button 
                     type='button'

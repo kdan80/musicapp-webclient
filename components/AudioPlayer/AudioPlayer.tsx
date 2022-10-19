@@ -74,7 +74,7 @@ const AudioPlayer: React.FC<Props> = ({
                             <Image
                                 layout={'fill'}
                                 objectFit={'cover'}
-                                src={`http://192.168.1.26:9000/images/${nowPlaying!.album._id}.jpg`}
+                                src={`${process.env.MINIO_IMAGES_BUCKET}/${nowPlaying!.album._id}.jpg`}
                                 alt='album art' />
                         </div>
                     </div>
