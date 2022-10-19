@@ -22,7 +22,6 @@ interface Props {
     setVolume: Dispatch<SetStateAction<number>>
     setSkipToTimestamp: Dispatch<SetStateAction<number>>
     setShowMiniPlayer: Dispatch<SetStateAction<boolean>>
-    setShowAudioPlayer: Dispatch<SetStateAction<boolean>>
 }
 
 const MiniPlayer: React.FC<Props> = ({
@@ -35,18 +34,12 @@ const MiniPlayer: React.FC<Props> = ({
         volume, setVolume,
         setSkipToTimestamp,
         setShowMiniPlayer,
-        setShowAudioPlayer
     }) => {
 
     const { title, artist, track_list } = nowPlaying!.album
     
-    
+
     const handleClick = (e: any) => {
-        // if ( e.target === e.currentTarget ) {
-        //     setShowAudioPlayer(true)
-        //     return setShowMiniPlayer(false)
-        // }
-        setShowAudioPlayer(true)
         return setShowMiniPlayer(false)
     }
 
@@ -67,6 +60,7 @@ const MiniPlayer: React.FC<Props> = ({
                                 src={`http://192.168.1.26:9000/images/${nowPlaying!.album._id}.jpg`}
                                 alt='album art' />
                             <div className={styles.nowPlayingDetails}>
+                                
                                 <div className={styles.nowPlayingSongTitle}>{track_list[currentTrack].title}</div>
                                 <div className={styles.nowPlayingArtist}>{artist}</div>
                             </div>

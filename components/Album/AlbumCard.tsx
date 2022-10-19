@@ -10,9 +10,11 @@ import { useRouter } from 'next/router'
 interface Props {
     album: Album
     setNowPlaying: Dispatch<SetStateAction<NowPlaying | null>>
+    setCurrentTrack: Dispatch<SetStateAction<number>>
+    setShowMiniPlayer: Dispatch<SetStateAction<boolean>>
 }
 
-const AlbumCard: React.FC<Props> = ({album, setNowPlaying}) => {
+const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setShowMiniPlayer}) => {
 
     const { logoutUser } = React.useContext(AuthContext)
     const router = useRouter()
@@ -33,10 +35,12 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying}) => {
                 withCredentials: true
             })
 
-            return setNowPlaying({
+            setNowPlaying({
                 album: album,
                 presignedUrls: response.data.presignedUrls
             })
+            setShowMiniPlayer(false)
+            return setCurrentTrack(0)
         } catch(err) {
             logoutUser()
             return router.push('/login')

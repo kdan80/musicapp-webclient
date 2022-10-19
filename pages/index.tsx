@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             try {
                 const response = await axios({
                     method: 'get',
-                    url: 'http://192.168.1.21:4000/album?page=1&limit=100',
+                    url: 'http://192.168.1.21:4000/album?page=1&limit=144',
                     withCredentials: true
                 })
                 setAlbums(response.data.results)
@@ -58,7 +58,7 @@ const Home: NextPage = () => {
 
     // Get source for current track
     React.useEffect(() => {
-        if (nowPlaying?.presignedUrls) {
+        if (nowPlaying) {
             const src = nowPlaying.presignedUrls[currentTrack]
             setAudioSrc(src)
         }
@@ -73,24 +73,32 @@ const Home: NextPage = () => {
 
     React.useEffect(() => {
         if (nowPlaying) {
-            setShowMiniPlayer(true)
+            setCurrentTrack(0)
             setIsPlaying(true)
         }
     }, [nowPlaying])
 
+    // Alternate between MiniPlayer and AudioPlayer
+    React.useEffect(() => {
+        if (nowPlaying && !showAudioPlayer) {
+            setShowMiniPlayer(true)
+        }
+    }, [nowPlaying, showAudioPlayer])
+
+    React.useEffect(() => {
+        if (nowPlaying && !showMiniPlayer) {
+            setShowAudioPlayer(true)
+        }
+    }, [nowPlaying, showMiniPlayer])
+
     // Update current time
     React.useEffect(() => {
-        if ( audioPlayerRef.current ) audioPlayerRef.current.currentTime = skipToTimestamp / 1000
+        if (audioPlayerRef.current) audioPlayerRef.current.currentTime = skipToTimestamp / 1000
     }, [skipToTimestamp])
-
-    // Reset current track when a new album is loaded
-    React.useEffect(() => {
-        setCurrentTrack(0)
-    }, [nowPlaying])
 
     // Get current song duration
     React.useEffect(() => {
-        if (nowPlaying) {
+        if (nowPlaying && nowPlaying.album.track_list.length > currentTrack) {
             setTrackDuration(nowPlaying.album.track_list[currentTrack].duration * 1000)
         }
     }, [currentTrack, nowPlaying])
@@ -111,13 +119,15 @@ const Home: NextPage = () => {
 
     return (
         <div className={styles.home}>
-            
-
             <Header />
             <Dashboard>
                 {
                     albums && (
-                        <AlbumGrid albums={albums} setNowPlaying={setNowPlaying} />
+                        <AlbumGrid 
+                            albums={albums} 
+                            setNowPlaying={setNowPlaying}
+                            setCurrentTrack={setCurrentTime}
+                            setShowMiniPlayer={setShowMiniPlayer} />
                     )
                 }
             </Dashboard>
@@ -145,8 +155,7 @@ const Home: NextPage = () => {
                                 setVolume={setVolume}
                                 trackDuration={trackDuration}
                                 setSkipToTimestamp={setSkipToTimestamp}
-                                setShowMiniPlayer={setShowMiniPlayer}
-                                setShowAudioPlayer={setShowAudioPlayer} />
+                                setShowMiniPlayer={setShowMiniPlayer} />
                         </motion.div>
                     )
                 }
@@ -154,7 +163,7 @@ const Home: NextPage = () => {
 
             <AnimatePresence>
                 {
-                    !showMiniPlayer && showAudioPlayer && (
+                    showAudioPlayer && (
                         <motion.div
                             className={styles.audioPlayerWrapper}
                             key='audioPlayer'
@@ -174,7 +183,6 @@ const Home: NextPage = () => {
                                     setVolume={setVolume}
                                     trackDuration={trackDuration}
                                     setSkipToTimestamp={setSkipToTimestamp}
-                                    setShowMiniPlayer={setShowMiniPlayer}
                                     setShowAudioPlayer={setShowAudioPlayer} />
                         </motion.div>
                     )

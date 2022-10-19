@@ -24,7 +24,6 @@ interface Props {
     currentTime: number
     setVolume: Dispatch<SetStateAction<number>>
     setSkipToTimestamp: Dispatch<SetStateAction<number>>
-    setShowMiniPlayer: Dispatch<SetStateAction<boolean>>
     setShowAudioPlayer: Dispatch<SetStateAction<boolean>>
 }
 
@@ -37,7 +36,6 @@ const AudioPlayer: React.FC<Props> = ({
         isMuted, setIsMuted,
         volume, setVolume,
         setSkipToTimestamp,
-        setShowMiniPlayer,
         setShowAudioPlayer
     }) => {
 
@@ -47,7 +45,6 @@ const AudioPlayer: React.FC<Props> = ({
 
     const minimizeAudioPlayer = () => {
         setShowAudioPlayer(false)
-        setShowMiniPlayer(true)
     }
 
     return (
