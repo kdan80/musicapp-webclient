@@ -43,9 +43,10 @@ const Home: NextPage = () => {
             try {
                 const response = await axios({
                     method: 'get',
-                    url: `${process.env.API_ALBUM_ENDPOINT}?page=1&limit=143`,
+                    url: `${process.env.API_ALBUM_ENDPOINT}?page=1&limit=144`,
                     withCredentials: true
                 })
+
                 setAlbums(response.data.results)
 
             } catch (err) {
