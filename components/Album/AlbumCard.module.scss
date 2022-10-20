@@ -131,7 +131,6 @@ $width-1920: calc((1/9 * 100%) - ($gap * 8/9));
 }
 
 .art,
-.artist,
 .title {
     cursor: pointer;
 }
@@ -141,10 +140,10 @@ $width-1920: calc((1/9 * 100%) - ($gap * 8/9));
     text-align: center;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
 
-    &:hover {
-        text-decoration: underline;
-    }
+.title:hover {
+    text-decoration: underline;
 }
 
 @media screen and (min-width: 500px) {

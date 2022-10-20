@@ -71,7 +71,7 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
             </div>
             <div
                 className={styles.details}>
-                    <div className={styles.title}>{album.title}</div>
+                    <div className={styles.title} onClick={handleClick}>{album.title}</div>
                     <div className={styles.artist}>{album.artist}</div>
             </div>
         </div>
