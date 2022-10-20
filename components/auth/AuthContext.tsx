@@ -31,7 +31,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
         const response = await axios({
             method: 'post',
-            url: 'http://192.168.1.21:4000/login',
+            url: `${process.env.API_LOGIN_ENDPOINT}`,
             withCredentials: true,
             data: {
                 "username": username,
