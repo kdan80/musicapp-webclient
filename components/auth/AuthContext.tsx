@@ -56,7 +56,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         try {
             const response = await axios({
                 method: 'post',
-                url: 'http://192.168.1.21:4000/logout',
+                url: `${process.env.API_LOGOUT_ENDPOINT}`,
                 withCredentials: true,
             })
         
