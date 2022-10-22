@@ -57,7 +57,7 @@ const MiniPlayer: React.FC<Props> = ({
                                 layout='fixed'
                                 height={50}
                                 width={50} 
-                                src={`${process.env.MINIO_IMAGES_BUCKET}/${nowPlaying!.album._id}.jpg`}
+                                src={`/albumart/${nowPlaying!.album._id}.webP`}
                                 alt='album art' />
                             <div className={styles.nowPlayingDetails}>
                                 
