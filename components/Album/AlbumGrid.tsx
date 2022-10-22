@@ -20,8 +20,7 @@ const AlbumGrid: React.FC<Props> = ({albums, setNowPlaying, setCurrentTrack, set
                         album={album} 
                         setNowPlaying={setNowPlaying}
                         setCurrentTrack={setCurrentTrack} 
-                        setShowMiniPlayer={setShowMiniPlayer}
-                        priority={(index < 40)} />
+                        setShowMiniPlayer={setShowMiniPlayer}/>
                 ))
             }
         </div>
