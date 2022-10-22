@@ -59,7 +59,7 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
                     width='100%' 
                     src={`/albumart/${album._id}.jpg`}
                     alt='album art'
-                    loading='lazy' />
+                    priority />
                 <div className={styles.overlay} />
                 <button 
                     type='button'
