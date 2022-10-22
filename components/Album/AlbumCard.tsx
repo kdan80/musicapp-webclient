@@ -61,6 +61,7 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
                     width={1}
                     src={`/albumart/${album._id}.webP`}
                     alt='album art'
+                    placeholder='blur'
                      />
                 <div className={styles.overlay} />
                 <button 
