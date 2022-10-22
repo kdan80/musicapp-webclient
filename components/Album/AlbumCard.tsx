@@ -55,8 +55,10 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
                 className={styles.art}> 
                 <Image 
                     layout='responsive'
-                    height='100%'
-                    width='100%' 
+                    // height='100%'
+                    // width='100%' 
+                    height={1}
+                    width={1}
                     src={`/albumart/${album._id}.webP`}
                     alt='album art'
                      />
