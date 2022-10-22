@@ -12,9 +12,10 @@ interface Props {
     setNowPlaying: Dispatch<SetStateAction<NowPlaying | null>>
     setCurrentTrack: Dispatch<SetStateAction<number>>
     setShowMiniPlayer: Dispatch<SetStateAction<boolean>>
+    priority?: boolean
 }
 
-const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setShowMiniPlayer}) => {
+const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setShowMiniPlayer, priority}) => {
 
     const { logoutUser } = React.useContext(AuthContext)
     const router = useRouter()
@@ -61,6 +62,7 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
                     width={1}
                     src={`/albumart/${album._id}.webP`}
                     alt='album art'
+                    priority={priority}
                     placeholder='blur'
                      />
                 <div className={styles.overlay} />
