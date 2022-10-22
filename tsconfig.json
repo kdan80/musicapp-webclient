@@ -7,17 +7,16 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "rootDir": ".",
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "removeComments": true, 
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": "./",                                  
-    // "paths": {
-    //   "@Auth/*": ["components/auth/*"],
-    // }   
   },
   "include": ["next-env.d.ts", "types.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

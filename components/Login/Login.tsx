@@ -24,6 +24,7 @@ const Login = () => {
 
         try {
             const response = await loginUser(username, password)
+            console.log(`${response.status}`)
             return router.push('/')
         } catch (err: any) {
             setErrorMessage(err.response.data.message)
