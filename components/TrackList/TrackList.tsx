@@ -49,9 +49,9 @@ const TrackList: React.FC<Props> = ({album, setShowTrackList, setCurrentTrack, c
                                     <Image
                                         layout={'fill'}
                                         objectFit={'cover'}
-                                        src={`${process.env.MINIO_IMAGES_BUCKET}/${album._id}.jpg`}
-                                        alt='album art' 
-                                    />
+                                        src={`/albumart/${album._id}.webP`}
+                                        alt='album art'
+                                        placeholder='blur' />
                                 </div>
                                 <div className={styles.trackTitle}>
                                     {track.title}
