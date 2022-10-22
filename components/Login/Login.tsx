@@ -22,13 +22,15 @@ const Login = () => {
 
         if (!username || !password) return
 
-        try {
-            const response = await loginUser(username, password)
-            console.log(`${response.status}`)
-            return router.push('/')
-        } catch (err: any) {
-            setErrorMessage(err.response.data.message)
-        }
+        await loginUser(username, password)
+        return router.push('/')
+
+        // try {
+        //     const response = await loginUser(username, password)
+        //     return router.push('/')
+        // } catch (err: any) {
+        //     setErrorMessage(err.response.data.message)
+        // }
     }   
 
     const enableGuestSignIn = () => {
@@ -59,8 +61,7 @@ const Login = () => {
     React.useEffect(() => {
         if (componentDidMount.current) {
             guestControls.start('hide')
-            componentDidMount.current = false;
-            return;
+            componentDidMount.current = false
         }
     });
 

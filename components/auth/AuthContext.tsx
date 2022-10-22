@@ -7,10 +7,10 @@ interface AuthContextInterface {
     setUser: React.Dispatch<React.SetStateAction<string | null>>
     isLoggedIn: boolean
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
-    loginUser: (username: string, password: string) => Promise<AxiosResponse<any, any>>
+    loginUser: (username: string, password: string) => void
     isLoading: boolean
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
-    logoutUser: () => Promise<AxiosResponse<any, any>>
+    logoutUser: () => void
 }
 
 // Context must only be accessed within AuthContext.Provider
@@ -29,26 +29,33 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
     const loginUser = async(username: string, password: string) => {
 
-        const response = await axios({
-            method: 'post',
-            url: `${process.env.API_LOGIN_ENDPOINT}`,
-            withCredentials: true,
-            data: {
-                "username": username,
-                "password": password
-            }
-        })
+        try {
 
-        if (response.status !== 200) return response
+            const response = await axios({
+                method: 'post',
+                url: `${process.env.API_LOGIN_ENDPOINT}`,
+                withCredentials: true,
+                data: {
+                    "username": username,
+                    "password": password
+                }
+            })
 
-        setCookie(null, 'user', `${username}`, {
-            httpOnly: false,
-            path: '/'
-        })
-        
-        setIsLoggedIn(true)
-        setUser(username)
-        return response
+            if (response.status !== 200) throw new Error('Login failed')
+
+            setCookie(null, 'user', `${username}`, {
+                httpOnly: false,
+                sameSite: 'lax',
+                path: '/'
+            })
+            
+            setIsLoggedIn(true)
+            setUser(username)
+            return
+
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     const logoutUser = async() => {
@@ -59,17 +66,17 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
                 url: `${process.env.API_LOGOUT_ENDPOINT}`,
                 withCredentials: true,
             })
-        
-            if (response.status !== 200) return response
+            if (response.status !== 200) throw new Error()
 
             destroyCookie(null, 'user')
             setUser(null)
             setIsLoggedIn(false)
-            return response
+            return 
         } catch (err) {
             destroyCookie(null, 'user')
             setUser(null)
-            return setIsLoggedIn(false)
+            setIsLoggedIn(false)
+            return
         }
     }
 
