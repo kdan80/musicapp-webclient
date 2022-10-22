@@ -57,7 +57,6 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
                     layout='responsive'
                     height='100%'
                     width='100%' 
-                    //src={`${process.env.MINIO_IMAGES_BUCKET}/${album._id}.jpg`} 
                     src={`/albumart/${album._id}.jpg`}
                     alt='album art'
                     loading='lazy' />
