@@ -74,8 +74,10 @@ const AudioPlayer: React.FC<Props> = ({
                             <Image
                                 layout={'fill'}
                                 objectFit={'cover'}
-                                src={`${process.env.MINIO_IMAGES_BUCKET}/${nowPlaying!.album._id}.jpg`}
-                                alt='album art' />
+                                src={`/albumart/${nowPlaying!.album._id}.webP`}
+                                alt='album art'
+                                placeholder='blur' />
+                                
                         </div>
                     </div>
 

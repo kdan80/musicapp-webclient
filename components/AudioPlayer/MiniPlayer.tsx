@@ -52,13 +52,13 @@ const MiniPlayer: React.FC<Props> = ({
                         {/* Left panel - img & info */}
                         <div className={styles.nowPlayingInfo}
                             onClick={handleClick}>
-                            <Image 
-                                className={styles.nowPlayingImg}
-                                layout='fixed'
+                            <Image
+                                layout={'fill'}
                                 height={50}
                                 width={50} 
-                                src={`${process.env.MINIO_IMAGES_BUCKET}/${nowPlaying!.album._id}.jpg`}
-                                alt='album art' />
+                                src={`/albumart/${nowPlaying!.album._id}.webP`}
+                                alt='album art'
+                                placeholder='blur' />
                             <div className={styles.nowPlayingDetails}>
                                 
                                 <div className={styles.nowPlayingSongTitle}>{track_list[currentTrack].title}</div>
