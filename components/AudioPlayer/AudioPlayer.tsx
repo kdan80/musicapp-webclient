@@ -76,7 +76,8 @@ const AudioPlayer: React.FC<Props> = ({
                                 objectFit={'cover'}
                                 src={`/albumart/${nowPlaying!.album._id}.webP`}
                                 alt='album art'
-                                placeholder='blur' />
+                                //placeholder='blur' 
+                                />
                                 
                         </div>
                     </div>

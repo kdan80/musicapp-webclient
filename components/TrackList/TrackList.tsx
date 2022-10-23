@@ -51,7 +51,8 @@ const TrackList: React.FC<Props> = ({album, setShowTrackList, setCurrentTrack, c
                                         objectFit={'cover'}
                                         src={`/albumart/${album._id}.webP`}
                                         alt='album art'
-                                        placeholder='blur' />
+                                        //placeholder='blur' 
+                                        />
                                 </div>
                                 <div className={styles.trackTitle}>
                                     {track.title}
