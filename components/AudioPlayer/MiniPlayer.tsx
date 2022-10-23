@@ -57,7 +57,7 @@ const MiniPlayer: React.FC<Props> = ({
                                 layout='fixed'
                                 height={50}
                                 width={50} 
-                                src={`/albumart/${nowPlaying!.album._id}.webP`}
+                                src={`https://d30if2vv974pn3.cloudfront.net/${nowPlaying!.album._id}.webP`}
                                 alt='album art' />
                             <div className={styles.nowPlayingDetails}>
                                 

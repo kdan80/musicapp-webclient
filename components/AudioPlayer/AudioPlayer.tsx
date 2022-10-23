@@ -71,14 +71,14 @@ const AudioPlayer: React.FC<Props> = ({
                 <div className={styles.middle}>
                     <div className={styles.imgContainer}>
                         <div className={styles.imgWrapper}>
-                            <Image
+                            <Image 
                                 layout={'fill'}
                                 objectFit={'cover'}
-                                src={`/albumart/${nowPlaying!.album._id}.webP`}
+                                src={`https://d30if2vv974pn3.cloudfront.net/${nowPlaying!.album._id}.webP`}
                                 alt='album art'
-                                //placeholder='blur' 
-                                />
-                                
+                                placeholder='blur'
+                                blurDataURL={`/blurData/${nowPlaying!.album._id}.webP`}
+                            />
                         </div>
                     </div>
 
