@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['192.168.1.26', 'kdan80minio.duckdns.org'],
+    domains: ['192.168.1.26', 'd30if2vv974pn3.cloudfront.net'],
   },
   env: {
     PRESIGNED_URL_ENDPOINT: process.env.PRESIGNED_URL_ENDPOINT,

@@ -57,9 +57,10 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
                     layout='responsive'
                     height={1}
                     width={1}
-                    src={`/albumart/${album._id}.webP`}
+                    src={`https://d30if2vv974pn3.cloudfront.net/${album._id}.webP`}
                     alt='album art'
-                    //placeholder='blur'
+                    placeholder='blur'
+                    blurDataURL={`/blurData/${album._id}.webP`}
                      />
                 <div className={styles.overlay} />
                 <button 
