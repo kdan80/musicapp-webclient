@@ -21,10 +21,6 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
     const router = useRouter()
     const [buttonClicked, setButtonClicked] = React.useState<boolean>(false)
     
-    React.useEffect(() => {
-        console.log('p: ', priority)
-    }, [priority])
-
     const handleClick = async() => {
         setButtonClicked(true)
         setTimeout(() => {
@@ -67,7 +63,8 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
                     alt='album art'
                     placeholder='blur'
                     blurDataURL={`/blurData/${album._id}.webP`}
-                    priority={priority}
+                    //priority={priority}
+                    loading={priority ? 'eager' : 'lazy'}
                      />
                 <div className={styles.overlay} />
                 <button 
