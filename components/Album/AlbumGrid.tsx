@@ -11,6 +11,8 @@ interface Props {
 
 const AlbumGrid: React.FC<Props> = ({albums, setNowPlaying, setCurrentTrack, setShowMiniPlayer}) => {
     
+    const lazyLoadBoundry = React.useRef(null)
+
     return (
         <div className={styles.grid}>
             {
