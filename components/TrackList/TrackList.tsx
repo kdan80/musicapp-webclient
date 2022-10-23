@@ -49,7 +49,8 @@ const TrackList: React.FC<Props> = ({album, setShowTrackList, setCurrentTrack, c
                                     <Image
                                         layout={'fill'}
                                         objectFit={'cover'}
-                                        src={`https://d30if2vv974pn3.cloudfront.net/${album._id}.webP`}
+                                        //src={`https://d30if2vv974pn3.cloudfront.net/${album._id}.webP`}
+                                        src={`/albumart/${album._id}.webP`}
                                         alt='album art'
                                         placeholder='blur' 
                                         blurDataURL={`/blurData/${album._id}.webP`}
