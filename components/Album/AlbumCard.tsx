@@ -48,6 +48,18 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
         }
     }
 
+    // const sizes = `
+    //     (max-width: 500px) calc((1/2 * 100vw) - (1.5rem * 1/2)),
+    //     (min-width: 500px) calc((1/3 * 100vw) - (1.5rem * 2/3)),
+    //     (min-width: 700px) calc((1/4 * 100vw) - (1.5rem * 3/4)),
+    //     (min-width: 800px) calc((1/5 * 100vw) - (1.5rem * 4/5)),
+    //     (min-width: 1200px) calc((1/6 * 100vw) - (1.5rem * 5/6)),
+    //     (min-width: 1400px) calc((1/7 * 100vw) - (1.5rem * 6/7)),
+    //     (min-width: 1600px) calc((1/8 * 100vw) - (1.5rem * 7/8)),
+    //     (min-width: 1920px) calc((1/9 * 100vw) - (1.5rem * 8/9)),
+    //     100vw
+    // `
+
     return (
         <div
             className={styles.card}
@@ -59,11 +71,12 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
                     height={1}
                     width={1}
                     //src={`https://d30if2vv974pn3.cloudfront.net/${album._id}.webP`}
-                    src={`/albumArt/${album._id}.webP`}
+                    src={`/albumArt/${album._id}/500x500.webp`}
                     alt='album art'
                     placeholder='blur'
-                    blurDataURL={`/blurData/${album._id}.webP`}
-                    priority={priority}
+                    blurDataURL={`/albumArt/${album._id}/blurData.webp`}
+                    //sizes={sizes}
+                    //priority={priority}
                      />
                 <div className={styles.overlay} />
                 <button 

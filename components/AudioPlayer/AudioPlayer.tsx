@@ -75,10 +75,10 @@ const AudioPlayer: React.FC<Props> = ({
                                 layout={'fill'}
                                 objectFit={'cover'}
                                 //src={`https://d30if2vv974pn3.cloudfront.net/${nowPlaying!.album._id}.webP`}
-                                src={`albumArt/${nowPlaying!.album._id}.webP`}
+                                src={`/albumArt/${nowPlaying!.album._id}/500x500.webp`}
                                 alt='album art'
                                 placeholder='blur'
-                                blurDataURL={`/blurData/${nowPlaying!.album._id}.webP`}
+                                blurDataURL={`/albumArt/${nowPlaying!.album._id}/blurData.webp`}
                             />
                         </div>
                     </div>

@@ -24,6 +24,7 @@ $width-1920: calc((1/9 * 100%) - ($gap * 8/9));
 
 .art {
     position: relative;
+    display: block;
     border-radius: 4px;
     overflow: hidden;
     flex-shrink: 0;

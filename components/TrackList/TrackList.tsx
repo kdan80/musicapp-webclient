@@ -50,10 +50,10 @@ const TrackList: React.FC<Props> = ({album, setShowTrackList, setCurrentTrack, c
                                         layout={'fill'}
                                         objectFit={'cover'}
                                         //src={`https://d30if2vv974pn3.cloudfront.net/${album._id}.webP`}
-                                        src={`/albumart/${album._id}.webP`}
+                                        src={`/albumArt/${album._id}/500x500.webp`}
                                         alt='album art'
                                         placeholder='blur' 
-                                        blurDataURL={`/blurData/${album._id}.webP`}
+                                        blurDataURL={`/albumArt/${album._id}/blurData.webp`}
                                         />
                                 </div>
                                 <div className={styles.trackTitle}>
