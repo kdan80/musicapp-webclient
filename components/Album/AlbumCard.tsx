@@ -76,7 +76,7 @@ const AlbumCard: React.FC<Props> = ({album, setNowPlaying, setCurrentTrack, setS
                     placeholder='blur'
                     blurDataURL={`/albumArt/${album._id}/blurData.webp`}
                     //sizes={sizes}
-                    priority={priority}
+                    //priority={priority}
                      />
                 <div className={styles.overlay} />
                 <button 
