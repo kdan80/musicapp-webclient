@@ -28,6 +28,7 @@ $handle-offset: calc(($track-height) - ($handle-size / 2));
         background: transparent;
         border: none;
         width: 100%;
+        margin-top: $handle-offset;
         cursor: pointer;
         z-index: 3;
 
@@ -36,6 +37,7 @@ $handle-offset: calc(($track-height) - ($handle-size / 2));
             border: none;
             height: $handle-size;
             width: $handle-size;
+            //margin-top: $handle-offset;
             background-color: $handleColor;
             box-shadow: $handle-shadow;
         }
@@ -49,7 +51,7 @@ $handle-offset: calc(($track-height) - ($handle-size / 2));
             -webkit-appearance: none;
             height: $handle-size;
             width: $handle-size;
-            margin-top: $handle-offset;
+            //margin-top: $handle-offset;
             border-radius: calc($handle-size / 2);
             background-color: $handleColor;
             box-shadow: $handle-shadow;
