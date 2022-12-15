@@ -143,7 +143,7 @@ const Login = () => {
                     variants={userText}
                     >
                     <div>Don&apos;t have an account?</div>
-                    <div>Sing in as a <span onClick={enableGuestSignIn}>guest</span></div>
+                    <div>Sign in as a <span onClick={enableGuestSignIn}>guest</span></div>
                 </motion.div>
 
                 <motion.div 
